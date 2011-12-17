@@ -2,12 +2,9 @@
 	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
 
 	<% @cards.each do |card| %>
-			<div class="row" >
-				<%= render_card_tree(card, 0) %>
-			</div>
+		<%= render_card_tree(card, 0) %>
 	<% end %>
-
+	
 	<div id="new_card_box">
-
 	</div>
 </div>

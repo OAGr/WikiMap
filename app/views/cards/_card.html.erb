@@ -1,11 +1,17 @@
 <%= content_tag_for :div, card, :class => "span4 single" do %>
-	<div class="title">
-		<%= link_to card.name, card_path(card) %>
-		<%= link_to 'E', edit_card_path(card) %>
-		<%= link_to 'D', card, confirm: 'Are you sure?', method: :delete, :remote => true %>
-		<%= link_to 'N', new_card_path( :parent_id => card.id ) %>
+	<div class="card-outline">
+		<div class="header">
+			<div class="header-inside">
+				<%= link_to card.name, card_path(card), :class => "title" %>
+				<div class="links">
+					<%= link_to 'E', edit_card_path(card) %>
+					<%= link_to 'D', card, confirm: 'Are you sure?', method: :delete, :remote => true %>
+					<%= link_to 'N', new_card_path( :parent_id => card.id ) %>
+				</div>
+			</div>
+		</div>
+		<div class="description">
+			<%= card.description %>
+		</div>		
 	</div>
-	<div class="description">
-		<%= card.description %>
-	</div>		
 <% end %>
