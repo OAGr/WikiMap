@@ -1,3 +1,21 @@
-$('#<%= dom_id(@card.parent) %> .card-children:first').append( "<%= j render 'form'  %>" );
+$("#<%= dom_id(@card.parent) %> .card-children:first").append( "<%= j render 'form'  %>" );
 $("#new_card .description").hide();
-$("input:submit").hide();
+$(".actions").hide();
+
+$("input:text:first").select();
+
+$("input:text:first").keypress(function(e) {
+        if (e.keyCode == 13){
+                e.preventDefault(e);
+                $("#new_card .description").show();
+                $("form .description textarea").select();
+
+        };
+});
+
+$("#new_card .description").keypress(function(e) {
+        if (e.keyCode == 13){
+                e.preventDefault(e);
+                $("form").submit();
+        };
+});

@@ -1,20 +1,8 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
 
-<p>
-  <b>Name:</b>
-  <%= @card.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @card.description %>
-</p>
-
-<p>
-  <b>Parent:</b>
-  <%= @card.parent_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_card_path(@card) %> |
-<%= link_to 'Back', cards_path %>
+		<%= render_card_tree(@card, 0) %>
+	
+	<div id="new_card_box">
+	</div>
+</div>

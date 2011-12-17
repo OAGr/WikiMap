@@ -7,7 +7,8 @@ module CardsHelper
   
   def render_card_tree(root_card, level)
     if level < 4
-      content_tag :div, :class => "row" do 
+      content_tag_for(:div, root_card, :class => "row ") do
+        
           render_string = ""
           render_string << render(:partial => '/cards/card', :locals => {:card => root_card})
           render_string << "<div class='#{div_for_level(level+1)}'>"
