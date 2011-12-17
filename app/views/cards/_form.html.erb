@@ -1,3 +1,6 @@
+<div class="card frame row", id="<%= dom_id(@card) %>">
+
+<div class="span4 single">
 <%= form_for(@card) do |f| %>
   <% if @card.errors.any? %>
     <div id="error_explanation">
@@ -11,19 +14,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
+  <div class="title">
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="description">
+    <%= f.text_area :description, :style =>"height:50px" %>
   </div>
   <div class="field">
-    <%= f.label :parent_id %><br />
-    <%= f.number_field :parent_id %>
+    <%= f.hidden_field :parent_id %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+</div>
 <% end %>

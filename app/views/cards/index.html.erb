@@ -1,27 +1,13 @@
-<h1>Listing cards</h1>
+<div class="container">
+	<td><%= link_to 'New Card', new_card_path( :parent_id => nil ), :remote => true %></td>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Parent</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+	<% @cards.each do |card| %>
+			<div class="row" >
+			<%= render_screen(card, card) %>	
+			</div>
+	<% end %>
 
-<% @cards.each do |card| %>
-  <tr>
-    <td><%= card.name %></td>
-    <td><%= card.description %></td>
-    <td><%= card.parent_id %></td>
-    <td><%= link_to 'Show', card %></td>
-    <td><%= link_to 'Edit', edit_card_path(card) %></td>
-    <td><%= link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+	<div id="new_card_box">
 
-<br />
-
-<%= link_to 'New Card', new_card_path %>
+	</div>
+</div>

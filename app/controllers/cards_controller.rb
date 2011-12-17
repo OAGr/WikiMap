@@ -24,11 +24,12 @@ class CardsController < ApplicationController
   # GET /cards/new
   # GET /cards/new.json
   def new
-    @card = Card.new
+    @card = Card.new(:parent_id => params[:parent_id])
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @card }
+      format.js
     end
   end
 
@@ -78,6 +79,7 @@ class CardsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cards_url }
       format.json { head :ok }
+      format.js
     end
   end
 end
