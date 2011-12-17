@@ -42,7 +42,7 @@ class CardsController < ApplicationController
   # POST /cards.json
   def create
     @card = Card.new(params[:card])
-    
+    @card.user = current_user
     respond_to do |format|
       if @card.save
         format.html { redirect_to cards_path, notice: 'Card was successfully created.' }

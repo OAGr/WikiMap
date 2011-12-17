@@ -1,14 +1,15 @@
 class SessionsController < ApplicationController
   def create
-    @auth = request.env['omniauth.auth']
-    unless @auth = Authorization.find_from_hash(auth)
+    omnihash = request.env['omniauth.auth']
+    unless @auth = Authorization.find_from_hash(omnihash)
       #store token if its new
       #create new user
-      new_user = User.new_from_hash(hash)
-       @auth = Authorization.create_from_hash(auth, new_user)
+      new_user = User.new_from_hash(omnihash)
+       @auth = Authorization.create_from_hash(omnihash, new_user)
      end
      # Log the authorizing user in.
-     self.current_user = @auth.user
+     session[:user_id] = @auth.user.id
+     redirect_to cards_path
   end
   
 
