@@ -1,28 +1,11 @@
-<%= content_tag_for(:div, card, :class => "frame row") do%>
-
-
-	<%= content_tag_for(:div, card, :class => "span4 single") do%>
-		<div class="title">
+<%= content_tag_for :div, card, :class => "span4 single" do %>
+	<div class="title">
 		<%= link_to card.name, card_path(card) %>
-			<%= link_to 'E', edit_card_path(card) %>
-				<%= link_to 'D', card, confirm: 'Are you sure?', method: :delete, :remote => true %>
-				<%= link_to 'N', new_card_path( :parent_id => card.id ), :remote => true %>
-			</div>
-			<div class="description">
-				<%= card.description %>
-			</div>
-		
-	<% end %>
-
-	<%= content_tag :div, :class => div_for_level(find_level(card, original)) do %>
-
-	<% if card.has_children? %>
-		 <% card.children.each do |child| %>
-			<%= render_screen(child, original)%> 
-	   <% end %>
-	 <% end %>
-
-
-	<% end %>
-
+		<%= link_to 'E', edit_card_path(card) %>
+		<%= link_to 'D', card, confirm: 'Are you sure?', method: :delete, :remote => true %>
+		<%= link_to 'N', new_card_path( :parent_id => card.id ) %>
+	</div>
+	<div class="description">
+		<%= card.description %>
+	</div>		
 <% end %>

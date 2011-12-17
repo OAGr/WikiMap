@@ -2,7 +2,7 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all
+    @cards = Card.root_cards
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,15 +42,16 @@ class CardsController < ApplicationController
   # POST /cards.json
   def create
     @card = Card.new(params[:card])
-
+    
     respond_to do |format|
       if @card.save
-        format.html { redirect_to @card, notice: 'Card was successfully created.' }
+        format.html { redirect_to cards_path, notice: 'Card was successfully created.' }
         format.json { render json: @card, status: :created, location: @card }
       else
         format.html { render action: "new" }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
+      format.js
     end
   end
 

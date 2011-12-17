@@ -1,9 +1,9 @@
 <div class="container">
-	<td><%= link_to 'New Card', new_card_path( :parent_id => nil ), :remote => true %></td>
+	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
 
 	<% @cards.each do |card| %>
 			<div class="row" >
-			<%= render_screen(card, card) %>	
+				<%= render_card_tree(card, 0) %>
 			</div>
 	<% end %>
 
