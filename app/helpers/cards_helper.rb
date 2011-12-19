@@ -23,5 +23,13 @@ module CardsHelper
     end  
   end
   
+  def render_new_card(card)
+    content_tag_for(:div, card, :class => "row ") do
+      render_string = ""
+      render_string <<render(:partial => '/cards/card', :locals => {:card => card})
+      render_string << "<div class='card-children' ></div>"
+      render_string.html_safe
+    end
+  end
 
 end
