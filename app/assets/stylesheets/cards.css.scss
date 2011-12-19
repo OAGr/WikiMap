@@ -8,12 +8,11 @@
 	left:1px;
 	top:1px;
 	.card-outline{
-		border: 1px solid #ccc;
-		border-radius:0.4em;
+	background:#f7f7f7;
+	
 	}
 	.header{
 		background:#ccc;
-		border-radius: 0.4em 0.4em 0 0;
 		padding:0.5em;
 		
 		.header-inside{}

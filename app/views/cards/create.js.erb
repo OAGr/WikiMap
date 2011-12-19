@@ -1,1 +1,18 @@
+var a = $("#new_card").parent();
+var spanClass;
+
+if (a.hasClass("span12")){
+	spanClass = "span8";
+}
+
+else if (a.hasClass("span8")){
+	spanClass = "span4";
+}
+
+else if (a.hasClass("span4")){
+	spanClass = "span0";
+}
+
 $("#new_card").replaceWith("<%=  j render_new_card(@card) %>");
+
+$("#<%= dom_id(@card) %> .card-children").addClass(spanClass);
