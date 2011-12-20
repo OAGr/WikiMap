@@ -32,4 +32,27 @@ module CardsHelper
     end
   end
 
+  def grandparent_ID(card)
+    grandparent = has_parent(card, 3)
+    if (grandparent == false)
+      return 1
+    else
+      return grandparent.id
+    end
+  end
+  
+  def great_grandparent(card)
+    return has_parent(card, 4)
+  end
+  
+  def has_parent(card,level)
+    if level == 0
+      return card
+    elsif !card.parent.nil?
+      level = level - 1
+      return has_parent(card.parent,level)
+    else
+      return false
+    end
+  end
 end

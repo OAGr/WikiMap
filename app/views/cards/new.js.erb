@@ -1,3 +1,8 @@
+if ($("#<%= dom_id(@card.parent) %>").atEnd()){
+	grandparent_ID = "<%= grandparent_ID(@card) %>";
+	$("#<%= dom_id(@card.parent) %>").moveLeft(grandparent_ID);
+}
+	
 $("#<%= dom_id(@card.parent) %> .card-children:first").append( "<%= j render 'form'  %>" );
 $("#new_card .description").hide();
 $(".actions").hide();
