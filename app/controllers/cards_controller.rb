@@ -3,7 +3,7 @@ class CardsController < ApplicationController
   # GET /cards.json
   def index
     @cards = Card.root_cards
-
+    @user = current_user
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @cards }
@@ -14,7 +14,7 @@ class CardsController < ApplicationController
   # GET /cards/1.json
   def show
     @card = Card.find(params[:id])
-
+    @user = current_user
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @card }
@@ -36,6 +36,7 @@ class CardsController < ApplicationController
   # GET /cards/1/edit
   def edit
     @card = Card.find(params[:id])
+    
   end
 
   # POST /cards
@@ -64,9 +65,11 @@ class CardsController < ApplicationController
       if @card.update_attributes(params[:card])
         format.html { redirect_to @card, notice: 'Card was successfully updated.' }
         format.json { head :ok }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @card.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
