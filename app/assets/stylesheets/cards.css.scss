@@ -3,17 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .card{
-	margin-bottom:1em;
+	margin-bottom:0.5em;
 	position:relative;
 	left:1px;
 	top:1px;
 	.card-outline{
-	background:#f7f7f7;
-	
+	background:#eee;
 	}
 	.header{
-		background:#ccc;
-		padding:0.5em;
+		background:#c5c5c5;
+		padding: 0.2em 0.3em 0.2em 0.3em;
 		
 		.header-inside{}
 		.title{
@@ -21,8 +20,12 @@
 		.links{
 		float:right;
 		}
+		a{
+		color:#000;
+		}
 	}
 	.description{
-	padding:0.5em;
+	padding:0.2em 0.4em 0.2em 0.3em;
+	color:#333;
 	}
 }
