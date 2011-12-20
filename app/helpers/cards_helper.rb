@@ -1,12 +1,12 @@
 module CardsHelper
   
   def div_for_level(level)
-    "span#{19-level.to_i*3} card-children"
+    "span#{20-level.to_i*4} card-children"
   end
 
   
   def render_card_tree(root_card, level)
-    if level < 6
+    if level < 5
       content_tag_for(:div, root_card, :class => "row ") do
         
           render_string = ""
@@ -33,7 +33,7 @@ module CardsHelper
   end
 
   def grandparent_ID(card)
-    grandparent = has_parent(card, 5)
+    grandparent = has_parent(card, 4)
     if (grandparent == false)
       return 1
     else
@@ -42,7 +42,7 @@ module CardsHelper
   end
   
   def great_grandparent(card)
-    return has_parent(card, 6)
+    return has_parent(card, 5)
   end
   
   def has_parent(card,level)
