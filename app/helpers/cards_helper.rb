@@ -1,12 +1,12 @@
 module CardsHelper
   
   def div_for_level(level)
-    "span#{16-level.to_i*4} card-children"
+    "span#{19-level.to_i*3} card-children"
   end
 
   
   def render_card_tree(root_card, level)
-    if level < 4
+    if level < 6
       content_tag_for(:div, root_card, :class => "row ") do
         
           render_string = ""
@@ -26,14 +26,14 @@ module CardsHelper
   def render_new_card(card)
     content_tag_for(:div, card, :class => "row ") do
       render_string = ""
-      render_string <<render(:partial => '/cards/card', :locals => {:card => card})
+      render_string << render(:partial => '/cards/card', :locals => {:card => card})
       render_string << "<div class='card-children' ></div>"
       render_string.html_safe
     end
   end
 
   def grandparent_ID(card)
-    grandparent = has_parent(card, 3)
+    grandparent = has_parent(card, 5)
     if (grandparent == false)
       return 1
     else
@@ -42,7 +42,7 @@ module CardsHelper
   end
   
   def great_grandparent(card)
-    return has_parent(card, 4)
+    return has_parent(card, 6)
   end
   
   def has_parent(card,level)
@@ -54,5 +54,21 @@ module CardsHelper
     else
       return false
     end
+  end
+  
+  def parent_card_list(card)
+    parent_list = []
+    while (card.parent != nil) do
+      parent = card.parent
+      parent_list.push(parent) 
+      card = parent
+      puts card
+    end
+    output = ""
+    parent_list = parent_list.reverse
+    parent_list.each do |card|
+      output <<  link_to(card.name, card) + " / " 
+    end
+    return output.html_safe
   end
 end

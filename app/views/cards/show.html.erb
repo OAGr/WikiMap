@@ -1,4 +1,5 @@
 <div class="container">
+	<%= parent_card_list(@card) %>
 	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
 
 		<%= render_card_tree(@card, 0) %>

@@ -1,26 +1,9 @@
-if ($("#<%= dom_id(@card.parent) %>").atEnd()){
-	grandparent_ID = "<%= grandparent_ID(@card) %>";
-	$("#<%= dom_id(@card.parent) %>").moveLeft(grandparent_ID);
+var grandparent_ID;
+
+if ($("#<%= dom_id(@card.parent) %>").atEnd()) {
+  grandparent_ID = "<%= grandparent_ID(@card) %>";
+  $("#<%= dom_id(@card.parent) %>").moveLeft(grandparent_ID);
+} else {
+  $("#<%= dom_id(@card.parent) %> .card-children:first").append("<%= j render 'form'  %>");
+  $("#new_card").initializeForm();
 }
-	
-$("#<%= dom_id(@card.parent) %> .card-children:first").append( "<%= j render 'form'  %>" );
-$("#new_card .description").hide();
-$(".actions").hide();
-
-$("input:text:first").select();
-
-$("input:text:first").keypress(function(e) {
-        if (e.keyCode == 13){
-                e.preventDefault(e);
-                $("#new_card .description").show();
-                $("form .description textarea").select();
-
-        };
-});
-
-$("#new_card .description").keypress(function(e) {
-        if (e.keyCode == 13){
-                e.preventDefault(e);
-                $("form").submit();
-        };
-});
