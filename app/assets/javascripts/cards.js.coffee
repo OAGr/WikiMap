@@ -14,37 +14,41 @@ Card =
     $(Card.selected).addClass("highlight")
     $('.highlight .links').show()
     $('.highlight').selectState()
-
+  highlightFirst: ->
+      FirstCard = $('.span4:first')
+      Card.highlight(FirstCard)
+	
+  active: ->
+    return $('.highlight .links').hasClass("active")
   parentSelect: ->
     father = $('.highlight').parent().parent().siblings()
-    Card.highlight(father)
+    if Card.active() then Card.highlight(father)
   childSelect: ->
     child = $('.highlight').siblings().children(":first").children('.single')
-    Card.highlight(child)
+    if Card.active() then Card.highlight(child)
   siblingNextSelect: ->
     sibling = $('.highlight').parent().next().children(":first")
-    Card.highlight(sibling)
-
+    if Card.active() then Card.highlight(sibling)
   siblingPrevSelect: ->
     sibling = $('.highlight').parent().prev().children(":first")
-    Card.highlight(sibling)
+    if Card.active() then Card.highlight(sibling)
 
 jQuery ->
   $('.links').hide()
   $('.header').live "click", (e) ->
     card = Card.findUnit(@)
     Card.highlight(card)
+  Card.highlightFirst()
 
   $(document).keydown (e) ->
     if (e.keyCode == 78) then $('.highlight .active .new').click()
     if (e.keyCode == 68) then $('.highlight .active .delete').click()
     if (e.keyCode == 69) then $('.highlight .active .edit').click()
-
-    if (e.keyCode == 74) or (e.keyCode == 37) then $('.highlight').left()
-    if (e.keyCode == 76) or (e.keyCode == 39) then $('.highlight').right()
-    if (e.keyCode == 73) or (e.keyCode == 38) then $('.highlight').up()
-    if (e.keyCode == 75) or (e.keyCode == 40) then $('.highlight').down()
-
+    if (e.keyCode == 79) then $('.highlight .active .open').click()
+    if (e.keyCode == 74) or (e.keyCode == 37) then $().left()
+    if (e.keyCode == 76) or (e.keyCode == 39) then $().right()
+    if (e.keyCode == 73) or (e.keyCode == 38) then $().up()
+    if (e.keyCode == 75) or (e.keyCode == 40) then $().down()
 jQuery.fn.extend
   editingState: ->
     $('.highlight .links').removeClass("active")
