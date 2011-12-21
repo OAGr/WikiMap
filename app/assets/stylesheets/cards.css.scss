@@ -24,11 +24,15 @@
 		color:#000;
 		}
 	}
-	.highlight{
-	border: 3px solid red;
-	}
+
 	.description{
 	padding:0.2em 0.4em 0.2em 0.3em;
 	color:#333;
+	}
+}
+
+.highlight{
+	.card-outline{
+		border: 3px solid red;
 	}
 }
