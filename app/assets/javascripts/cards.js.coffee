@@ -23,8 +23,11 @@ Card =
     Card.highlight(child)
   siblingNextSelect: ->
     sibling = $('.highlight').parent().next().children(":first")
+    Card.highlight(sibling)
+
   siblingPrevSelect: ->
     sibling = $('.highlight').parent().prev().children(":first")
+    Card.highlight(sibling)
 
 jQuery ->
   $('.links').hide()
