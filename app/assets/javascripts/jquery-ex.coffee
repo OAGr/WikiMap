@@ -25,9 +25,9 @@ $.fn.extend
     $("input:text:first").keypress (e) ->
       if (e.keyCode == 13)
         e.preventDefault(e);
-        $("#new_card .description").show()
+        $("form .description").show()
         $("form .description textarea").select()
-    $("#new_card .description").keypress (e) ->
+    $("form .description").keypress (e) ->
       if (e.keyCode == 13)
         e.preventDefault(e);
         $("form").submit();

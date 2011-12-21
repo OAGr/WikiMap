@@ -1,1 +1,5 @@
-$("#<%= dom_id(@card) %> ").html("<%= j render 'form'  %>");
+$('container').editingState();
+
+a = $("#<%= dom_id(@card) %> .span4 ")[0]
+$(a).html("<%= j render 'form'  %>");
+$(".edit_card").initializeForm();

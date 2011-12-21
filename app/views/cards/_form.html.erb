@@ -1,6 +1,6 @@
 <div class="card frame row", id="<%= dom_id(@card) %>">
 
-	<div class="span3 single">
+	<div class="span4 single">
 	<%= form_for @card, remote: true do |f| %>
 	  <% if @card.errors.any? %>
 	    <div id="error_explanation">
