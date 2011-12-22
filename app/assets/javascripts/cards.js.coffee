@@ -20,18 +20,41 @@ Card =
 	
   active: ->
     return $('.highlight .links').hasClass("active")
+  father: (card = $('.highlight')) ->
+    $(card).parent().parent().siblings()
+  child: (card = $('.highlight')) ->
+    $(card).siblings().children(":first").children('.single')
+  bottomSibling: (card = $('.highlight')) ->
+    $(card).parent().next().children(":first")
+  topSibling: (card = $('.highlight')) ->
+    $(card).parent().prev().children(":first")
+  topCousin: (card = $('.highlight')) ->
+    father = Card.father($(card))
+    uncle = Card.topSibling($(father))
+    cousin = Card.child($(uncle))
+  bottomCousin: (card = $('.highlight')) ->
+    father = Card.father($(card))
+    uncle = Card.bottomSibling($(father))
+    cousin = Card.child($(uncle))
+
   parentSelect: ->
-    father = $('.highlight').parent().parent().siblings()
+    father = Card.father()
     if Card.active() and (father.size() != 0) then Card.highlight(father)
   childSelect: ->
-    child = $('.highlight').siblings().children(":first").children('.single')
+    child = Card.child() 
     if Card.active() and (child.size() != 0) then Card.highlight(child)
   siblingNextSelect: ->
-    sibling = $('.highlight').parent().next().children(":first")
-    if Card.active() and (sibling.size() != 0) then Card.highlight(sibling)
+    bottomSibling = Card.bottomSibling()
+    bottomCousin = Card.bottomCousin()
+    if Card.active() 
+      if (bottomSibling.size() != 0) then Card.highlight(bottomSibling)
+      else if (bottomCousin.size() != 0) then Card.highlight(bottomCousin)
   siblingPrevSelect: ->
-    sibling = $('.highlight').parent().prev().children(":first")
-    if Card.active() and (sibling.size() != 0) then Card.highlight(sibling)
+    topSibling = Card.topSibling()
+    topCousin = Card.topCousin()
+    if Card.active() 
+      if (topSibling.size() != 0) then Card.highlight(topSibling)
+      else if (topCousin.size() != 0) then Card.highlight(topCousin)
 
 jQuery ->
   $('.links').hide()

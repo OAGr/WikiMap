@@ -1,8 +1,14 @@
-var spanClass = $("#new_card").findSpan()
+<% if @card.new_record? %>
 
+$('form').fadeOut();
+$('form').remove();
+
+<% else %>
+
+var spanClass = $("#new_card").findSpan();
 $("#new_card").replaceWith("<%=  j render_new_card(@card) %>");
-
 $("#<%= dom_id(@card) %> .card-children").addClass(spanClass);
 
-$('container').selectState();
+<% end %>
 
+$('container').selectState();
