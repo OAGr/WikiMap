@@ -22,16 +22,16 @@ Card =
     return $('.highlight .links').hasClass("active")
   parentSelect: ->
     father = $('.highlight').parent().parent().siblings()
-    if Card.active() then Card.highlight(father)
+    if Card.active() and (father.size() != 0) then Card.highlight(father)
   childSelect: ->
     child = $('.highlight').siblings().children(":first").children('.single')
-    if Card.active() then Card.highlight(child)
+    if Card.active() and (child.size() != 0) then Card.highlight(child)
   siblingNextSelect: ->
     sibling = $('.highlight').parent().next().children(":first")
-    if Card.active() then Card.highlight(sibling)
+    if Card.active() and (sibling.size() != 0) then Card.highlight(sibling)
   siblingPrevSelect: ->
     sibling = $('.highlight').parent().prev().children(":first")
-    if Card.active() then Card.highlight(sibling)
+    if Card.active() and (sibling.size() != 0) then Card.highlight(sibling)
 
 jQuery ->
   $('.links').hide()
