@@ -20,38 +20,26 @@ Card =
 	
   active: ->
     return $('.highlight .links').hasClass("active")
-  father: (card = $('.highlight')) ->
-    $(card).parent().parent().siblings()
-  child: (card = $('.highlight')) ->
-    $(card).siblings().children(":first").children('.single')
-  bottomSibling: (card = $('.highlight')) ->
-    $(card).parent().next().children(":first")
-  topSibling: (card = $('.highlight')) ->
-    $(card).parent().prev().children(":first")
-  topCousin: (card = $('.highlight')) ->
-    father = Card.father($(card))
-    uncle = Card.topSibling($(father))
-    cousin = Card.child($(uncle))
-  bottomCousin: (card = $('.highlight')) ->
-    father = Card.father($(card))
-    uncle = Card.bottomSibling($(father))
-    cousin = Card.child($(uncle))
+
+  fullLeft: (card) ->
+    superfather = Card.father(card)
 
   parentSelect: ->
-    father = Card.father()
-    if Card.active() and (father.size() != 0) then Card.highlight(father)
+    father = $('.highlight').father()
+    if Card.active() and (father.parentsUntil('.container').size() != 0) then Card.highlight(father)
   childSelect: ->
-    child = Card.child() 
+    child = $('.highlight').child() 
     if Card.active() and (child.size() != 0) then Card.highlight(child)
   siblingNextSelect: ->
-    bottomSibling = Card.bottomSibling()
-    bottomCousin = Card.bottomCousin()
+    bottomSibling = $('.highlight').bottomSibling()
+    bottomCousin = $('.highlight').bottomCousin()
     if Card.active() 
       if (bottomSibling.size() != 0) then Card.highlight(bottomSibling)
       else if (bottomCousin.size() != 0) then Card.highlight(bottomCousin)
+
   siblingPrevSelect: ->
-    topSibling = Card.topSibling()
-    topCousin = Card.topCousin()
+    topSibling = $('.highlight').topSibling()
+    topCousin = $('.highlight').topCousin()
     if Card.active() 
       if (topSibling.size() != 0) then Card.highlight(topSibling)
       else if (topCousin.size() != 0) then Card.highlight(topCousin)
@@ -72,6 +60,7 @@ jQuery ->
     if (e.keyCode == 76) or (e.keyCode == 39) then $().right()
     if (e.keyCode == 73) or (e.keyCode == 38) then $().up()
     if (e.keyCode == 75) or (e.keyCode == 40) then $().down()
+
 jQuery.fn.extend
   editingState: ->
     $('.highlight .links').removeClass("active")
@@ -85,3 +74,39 @@ jQuery.fn.extend
     Card.siblingNextSelect()
   up: ->
     Card.siblingPrevSelect()
+
+  shiftRight: ->
+    RowArray = $(this).parentsUntil('.container')
+    Row = RowArray[ RowArray.length - 2]
+    Ansestor = Row.children[0]
+    OtherRows = $(Row).siblings()
+    NewContents = RowArray[ RowArray.length - 3]
+    $(Ansestor).hide(1000)
+    $(Ansestor).remove()
+    $(OtherRows).remove()
+    $('#whiteboard').html( $('.span16').html() )
+
+    $('.span12.card-children').addClass('span16')
+    $('.span12.card-children').removeClass('span12')
+    $('.span8.card-children').addClass('span12')
+    $('.span8.card-children').removeClass('span8')
+    $('.span4.card-children').addClass('span8')
+    $('.span4.card-children').removeClass('span4')
+    $('.span0.card-children').addClass('span4')
+    $('.span0.card-children').removeClass('span0')
+
+  father: ->
+    $($(@).parent().parent().siblings())
+  child: ->
+    $($(@).siblings().children(":first").children('.single'))
+  lastChild: ->
+    $($(@).siblings().children(":last").children('.single'))
+  bottomSibling: ->
+    $($(@).parent().next().children(":first"))
+  topSibling: ->
+    $($(@).parent().prev().children(":first"))
+  topCousin:  ->
+    $($(@).father().topSibling().lastChild())
+  bottomCousin: ->
+    $($(@).father().bottomSibling().child())
+
