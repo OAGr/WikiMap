@@ -30,7 +30,9 @@ Card =
     if Card.active() and (father.parentsUntil('.container').size() != 0) then Card.highlight(father)
   childSelect: ->
     child = $('.highlight').child() 
-    if Card.active() and (child.size() != 0) then Card.highlight(child)
+    if (child.size() == 0) then $('.highlight').shiftRight()
+    else if Card.active() then Card.highlight(child)
+
   siblingNextSelect: ->
     bottomSibling = $('.highlight').bottomSibling()
     bottomCousin = $('.highlight').bottomCousin()
@@ -76,14 +78,19 @@ jQuery.fn.extend
     Card.siblingPrevSelect()
 
   shiftRight: ->
-    rowArray = $(this).parentsUntil('.container')
+    rowArray = $('.highlight').parentsUntil('.container')
     row = rowArray[ rowArray.length - 2]
     ansestor = row.children[0]
     otherRows = $(row).siblings()
-    $(ansestor).hide(1000)
-    $(ansestor).remove()
-    $(otherRows).remove()
-    $('#whiteboard').html( $('.span16').html() )
+
+    $(otherRows).hide 1000, ->
+      $(otherRows).remove()
+
+    $(ansestor).hide 1000, ->
+      $(ansestor).remove()
+      $('#whiteboard').html( $('.span16').html() )
+
+	
 
     $('.span12.card-children').addClass('span16')
     $('.span12.card-children').removeClass('span12')
