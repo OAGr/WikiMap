@@ -7,22 +7,23 @@ Card =
   findUnit: (touchDiv) ->
     cardunit = $(touchDiv).parent().parent()
 
-  highlight: (card) ->
+  highlight: (card) -> #Selects the card passed in 
     Card.selected = card
     $('.highlight .links').hide()
-    $('.highlight').removeClass("highlight")
+    $('.highlight').removeClass("highlight") #Removes other highlights
     $(Card.selected).addClass("highlight")
     $('.highlight .links').show()
     $('.highlight').selectState()
-  highlightFirst: ->
+
+  highlightFirst: ->  #When the DOM loads, this highlights the first card
       FirstCard = $('.span4:first')
       Card.highlight(FirstCard)
-	
-  active: ->
-    return $('.highlight .links').hasClass("active")
 
-  fullLeft: (card) ->
-    superfather = Card.father(card)
+  #Changes the highlighted card to be active.  
+  #This means that it can receive button presses as actions to Add / Delete / Edit / Navigate
+  #This is turned off for forms, when a user doesn't want "New" pressed when an "N" is entered
+  active: ->      
+    return $('.highlight .links').hasClass("active")
 
   parentSelect: ->
     father = $('.highlight').father()
@@ -36,7 +37,6 @@ Card =
     if Card.active() 
       if (bottomSibling.size() != 0) then Card.highlight(bottomSibling)
       else if (bottomCousin.size() != 0) then Card.highlight(bottomCousin)
-
   siblingPrevSelect: ->
     topSibling = $('.highlight').topSibling()
     topCousin = $('.highlight').topCousin()
@@ -76,14 +76,13 @@ jQuery.fn.extend
     Card.siblingPrevSelect()
 
   shiftRight: ->
-    RowArray = $(this).parentsUntil('.container')
-    Row = RowArray[ RowArray.length - 2]
-    Ansestor = Row.children[0]
-    OtherRows = $(Row).siblings()
-    NewContents = RowArray[ RowArray.length - 3]
-    $(Ansestor).hide(1000)
-    $(Ansestor).remove()
-    $(OtherRows).remove()
+    rowArray = $(this).parentsUntil('.container')
+    row = rowArray[ rowArray.length - 2]
+    ansestor = row.children[0]
+    otherRows = $(row).siblings()
+    $(ansestor).hide(1000)
+    $(ansestor).remove()
+    $(otherRows).remove()
     $('#whiteboard').html( $('.span16').html() )
 
     $('.span12.card-children').addClass('span16')
@@ -93,7 +92,7 @@ jQuery.fn.extend
     $('.span4.card-children').addClass('span8')
     $('.span4.card-children').removeClass('span4')
     $('.span0.card-children').addClass('span4')
-    $('.span0.card-children').removeClass('span0')
+    $('.span0.card-children').removeClass('sspan0')
 
   father: ->
     $($(@).parent().parent().siblings())
