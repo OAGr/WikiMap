@@ -4,6 +4,8 @@
 
 Card = 
   seleted: 1
+  highlightID: ""
+
   findUnit: (touchDiv) ->
     cardunit = $(touchDiv).parent().parent()
 
@@ -11,10 +13,19 @@ Card =
     Card.selected = card
     $('.highlight .links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
+    Card.selectedHighlight()
+
+  selectedHighlight: ->
     $(Card.selected).addClass("highlight")
     $('.highlight .links').show()
     $('.highlight').selectState()
 
+  storeHighlight: ->
+    Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
+
+  restorHighlight: ->
+    Card.highlight($(Card.highlightID))
+ 
   highlightFirst: ->  #When the DOM loads, this highlights the first card
       FirstCard = $('.span4:first')
       Card.highlight(FirstCard)
@@ -82,24 +93,28 @@ jQuery.fn.extend
     row = rowArray[ rowArray.length - 2]
     ansestor = row.children[0]
     otherRows = $(row).siblings()
+    newCard = $(ansestor).findId()
+    id = "/cards/" + newCard + ".html" + " #whiteboard"
+    #alert "hi"
+    Card.storeHighlight()
+    $('.container').load id, ->
+      $(Card.selected).addClass("highlight")
+      Card.restorHighlight()
 
-    $(otherRows).hide 1000, ->
-      $(otherRows).remove()
+    #$(otherRows).hide(1000)
+    #$(ansestor).hide 1000, ->
+    #  $('.container').load newCard
+     #alert 'Load was performed.'
+		#$('#whiteboard').html( $('.span16').html() )
 
-    $(ansestor).hide 1000, ->
-      $(ansestor).remove()
-      $('#whiteboard').html( $('.span16').html() )
-
-	
-
-    $('.span12.card-children').addClass('span16')
-    $('.span12.card-children').removeClass('span12')
-    $('.span8.card-children').addClass('span12')
-    $('.span8.card-children').removeClass('span8')
-    $('.span4.card-children').addClass('span8')
-    $('.span4.card-children').removeClass('span4')
-    $('.span0.card-children').addClass('span4')
-    $('.span0.card-children').removeClass('sspan0')
+    #$('.span12.card-children').addClass('span16')
+    #$('.span12.card-children').removeClass('span12')
+    #$('.span8.card-children').addClass('span12')
+    #$('.span8.card-children').removeClass('span8')
+    #$('.span4.card-children').addClass('span8')
+    #$('.span4.card-children').removeClass('span4')
+    #$('.span0.card-children').addClass('span4')
+    #('.span0.card-children').removeClass('span0')
 
   father: ->
     $($(@).parent().parent().siblings())
@@ -116,3 +131,8 @@ jQuery.fn.extend
   bottomCousin: ->
     $($(@).father().bottomSibling().child())
 
+  findId: ->
+    parent = $(this).parent()
+    cardId = $(parent)[0].id
+    regexp = /\d+/
+    regexp.exec(cardId)[0];    

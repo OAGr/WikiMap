@@ -1,1 +1,10 @@
-<%= render_card_tree(@card, 0) %>
+<div class="container">
+	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
+	<%= signed_in? %>
+	
+	<div id="whiteboard">
+		<% @card.children.each do |card| %>
+			<%= render_card_tree(card, 0) %>
+		<% end %>
+	</div>
+</div>
