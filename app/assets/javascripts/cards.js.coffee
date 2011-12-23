@@ -39,9 +39,11 @@ Card =
   parentSelect: ->
     father = $('.highlight').father()
     if Card.active() and (father.parentsUntil('.container').size() != 0) then Card.highlight(father)
+    else $().shift("right")
+
   childSelect: ->
     child = $('.highlight').child() 
-    if $('.highlight').siblings().hasClass("span0") then $('.highlight').shiftRight()
+    if $('.highlight').siblings().hasClass("span0") then $().shift("left")
     else if (child.size() != 0) and Card.active() then Card.highlight(child)
 
   siblingNextSelect: ->
@@ -75,7 +77,8 @@ jQuery ->
         when 76, 39 then $().right()
         when 73, 38 then $().up()
         when 75, 40 then $().down()
-        when 83 then $().shiftRight()
+        when 83 then $().shift("right")
+        when 65 then $().shift("left")
 
 jQuery.fn.extend
   editingState: ->
@@ -91,19 +94,33 @@ jQuery.fn.extend
   up: ->
     Card.siblingPrevSelect()
 
-  shiftRight: ->
+  shift: (direction = "left") ->
     rowArray = $('.highlight').parentsUntil('.container')
-    row = rowArray[ rowArray.length - 3]
-    ansestor = row.children[0]
+    row = rowArray[ rowArray.length - 2]
     otherRows = $(row).siblings()
+    ansestor = row.children[0]
     newCard = $(ansestor).findId()
-    id = "/cards/" + newCard + ".html" + " #innerWhiteboard"
-    #alert "hi"
-    Card.storeHighlight()
-    $('#outerWhiteboard').load id, ->
-      $(Card.selected).addClass("highlight")
-      Card.restorHighlight()
+    
+    switch direction
+      when "right" 
+        levelTag = "?level=2"
+        deleteColumn = $('.span4 .row')
+      when "left"
+        levelTag = ""
+        deleteColumn = $(ansestor)
 
+    id = "/cards/" + newCard + ".html" + levelTag + " #Whiteboard>.row"
+    
+    Card.storeHighlight()
+    $(deleteColumn).hide 50, ->
+      $('#Whiteboard').load id, -> 
+        $(otherRows).hide(100)
+        $(Card.selected).addClass("highlight")
+        Card.restorHighlight()
+      
+
+	  
+	
     #$(otherRows).hide(1000)
     #$(ansestor).hide 1000, ->
     #  $('.container').load newCard

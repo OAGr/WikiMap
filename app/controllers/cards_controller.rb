@@ -14,6 +14,17 @@ class CardsController < ApplicationController
   # GET /cards/1.json
   def show
     @card = Card.find(params[:id])
+    if (params[:level])
+      if (params[:level] == '1')
+        @card = @card.parent
+      elsif (params[:level] == '2')
+        if @card.parent.parent.nil?
+          @card = @card.parent
+        else
+          @card = @card.parent.parent
+        end
+      end
+    end
     @user = current_user
     respond_to do |format|
       format.html # show.html.erb
