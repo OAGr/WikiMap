@@ -57,18 +57,11 @@ module CardsHelper
   end
   
   def parent_card_list(card)
-    parent_list = []
-    while (card.parent != nil) do
-      parent = card.parent
-      parent_list.push(parent) 
-      card = parent
-      puts card
-    end
-    output = ""
-    parent_list = parent_list.reverse
-    parent_list.each do |card|
-      output <<  link_to(card.name, card) + " / " 
-    end
-    return output.html_safe
+    list = [card]
+    #unshifts add to beginning of list
+    list.unshift link_to(list.first.parent.name, list.first.parent.name) until list.first.parent.nil? 
+    list.reverse.join(" / ")
+    return list.html_safe
   end
+
 end
