@@ -81,7 +81,7 @@ jQuery.fn.extend
     return item for item in classArray when this.hasClass(item)
 
   editingState: ->
-    $('.highlight.active').removeClass("active")
+    $('.highlight').removeClass("active")
   selectState: ->
     $('.highlight').addClass("active")
   left: -> 
