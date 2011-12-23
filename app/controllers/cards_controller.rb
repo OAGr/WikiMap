@@ -44,6 +44,13 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(params[:card])
     @card.user = current_user
+    
+    if @card.parent_id != nil
+      @card.grandparent_id = @card.parent.parent_id
+    else
+      @card.grandparent_id = nil
+    end
+    
     respond_to do |format|
       if @card.save
         format.html { redirect_to cards_path, notice: 'Card was successfully created.' }
