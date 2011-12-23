@@ -59,8 +59,7 @@ module CardsHelper
     list = [card]
     #unshifts add to beginning of list
     list.unshift link_to(list.first.parent.name, list.first.parent.name) until list.first.parent.nil? 
-    list.reverse.join(" / ")
-    return list.html_safe
+    list.reverse.join(" / ").html_safe
   end
 
 end
