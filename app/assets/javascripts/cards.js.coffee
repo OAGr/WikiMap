@@ -23,7 +23,7 @@ Card =
   storeHighlight: ->
     Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
 
-  restorHighlight: ->
+  restoreHighlight: ->
     Card.highlight($(Card.highlightID)[0])
  
   highlightFirst: ->  #When the DOM loads, this highlights the first card
@@ -46,18 +46,14 @@ Card =
     if $('.highlight').siblings().hasClass("span0") then $().shift("left")
     else if (child.size() != 0) and Card.active() then Card.highlight(child)
 
-  siblingNextSelect: ->
-    bottomSibling = $('.highlight').bottomSibling()
-    bottomCousin = $('.highlight').bottomCousin()
-    if Card.active() 
-      if (bottomSibling.size() != 0) then Card.highlight(bottomSibling)
-      else if (bottomCousin.size() != 0) then Card.highlight(bottomCousin)
-  siblingPrevSelect: ->
-    topSibling = $('.highlight').topSibling()
-    topCousin = $('.highlight').topCousin()
-    if Card.active() 
-      if (topSibling.size() != 0) then Card.highlight(topSibling)
-      else if (topCousin.size() != 0) then Card.highlight(topCousin)
+  siblingSelect: ( change ) ->
+    spanLink = $('.highlight').parent().parent().whichClass(['Whiteboard','span16','span12','span8','span4','span0'])
+    column = $(" .#{spanLink} > .row")
+    highlightParent = $('.highlight').parent()[0]
+    newIndex = column.index(highlightParent) + change
+    if (column[newIndex] != undefined)
+      newCard = column[newIndex].children[0]
+      Card.highlight($(newCard))
 
 jQuery ->
   $('.links').hide()
@@ -81,6 +77,9 @@ jQuery ->
         when 65 then $().shift("left")
 
 jQuery.fn.extend
+  whichClass: (classArray) ->	
+    return item for item in classArray when this.hasClass(item)
+
   editingState: ->
     $('.highlight.active').removeClass("active")
   selectState: ->
@@ -90,9 +89,10 @@ jQuery.fn.extend
   right: ->
     Card.childSelect()
   down: ->
-    Card.siblingNextSelect()
+    Card.siblingSelect(1)
   up: ->
-    Card.siblingPrevSelect()
+    Card.siblingSelect(-1)
+
 
   shift: (direction = "left", callback_fxn) ->
     rowArray = $('.highlight').parentsUntil('.container')
@@ -104,15 +104,15 @@ jQuery.fn.extend
     switch direction
       when "right" 
         levelTag = "?level=2"
-        deleteColumn = $('.span4 .row')
+        deleteColumn = $()
       when "left"
         levelTag = ""
         deleteColumn = $(ansestor)
 
-    id = "/cards/" + newCard + ".html" + levelTag + " #Whiteboard>.row"
+    id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     Card.storeHighlight()
     $(deleteColumn).hide (50)
-    $('#Whiteboard').load id, ->
+    $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
       $(Card.selected).addClass("highlight")
       Card.restorHighlight()
