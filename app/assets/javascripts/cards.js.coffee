@@ -94,7 +94,7 @@ jQuery.fn.extend
     Card.siblingSelect(-1)
 
 
-  shift: (direction = "left") ->
+  shift: (direction = "left", callback_fxn) ->
     rowArray = $('.highlight').parentsUntil('.container')
     row = rowArray[ rowArray.length - 2]
     otherRows = $(row).siblings()
@@ -116,7 +116,7 @@ jQuery.fn.extend
       $(otherRows).hide(100)
       $(Card.selected).addClass("highlight")
       Card.restoreHighlight()
-      $('.links').hide()
+      callback_fxn()
     #$.ajax
     #  type: 'GET'
     #  dataType: 'html'
@@ -128,10 +128,6 @@ jQuery.fn.extend
     
    
    #$('#Whiteboard').load id, -> 
-      
-
-	  
-	
     #$(otherRows).hide(1000)
     #$(ansestor).hide 1000, ->
     #  $('.container').load newCard

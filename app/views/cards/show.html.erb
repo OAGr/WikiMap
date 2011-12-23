@@ -3,7 +3,7 @@
 	<%= signed_in? %>
 	<% if !@card.nil? %>	
 		<div class="Whiteboard">
-			<% @card.children.each do |card| %>
+			<% @cards.each do |card| %>
 				<%= render_card_tree(card, 0) %>
 			<% end %>
 		</div>
