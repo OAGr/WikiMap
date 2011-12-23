@@ -29,9 +29,11 @@ $.fn.extend
         $("form .description textarea").select()
       else if (e.keyCode == 27)
         $("#new_card").remove()
+        $().selectState()
     $("form .description").keydown (e) ->
       if (e.keyCode == 13)
         e.preventDefault(e)
         $("form").submit()
       else if (e.keyCode == 27)
         $("#new_card").remove()
+        $().selectState()
