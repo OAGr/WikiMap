@@ -109,10 +109,10 @@ jQuery.fn.extend
         levelTag = ""
         deleteColumn = $(ansestor)
 
-    id = "/cards/" + newCard + ".html" + levelTag + " #Whiteboard>.row"
+    id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     Card.storeHighlight()
     $(deleteColumn).hide (50)
-    $('#Whiteboard').load id, ->
+    $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
       $(Card.selected).addClass("highlight")
       Card.restoreHighlight()
