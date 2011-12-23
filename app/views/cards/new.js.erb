@@ -5,8 +5,7 @@ var grandparent_ID;
 if ($("#<%= dom_id(@card.parent) %>").atEnd()) {
   grandparent_ID = "<%= grandparent_ID(@card) %>";
   $("#<%= dom_id(@card.parent) %>").shift("left", function(){
-    $("#<%= dom_id(@card.parent) %> .card-children:first").append("<%= j render 'form'  %>");
-    $("#new_card").initializeForm();
+    $('.highlight .new').click(); //reclick the new button
   });
 } else {
   $("#<%= dom_id(@card.parent) %> .card-children:first").append("<%= j render 'form'  %>");
