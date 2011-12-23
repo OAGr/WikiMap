@@ -4,14 +4,13 @@ module CardsHelper
     "span#{20-level.to_i*4} card-children"
   end
 
-  
   def render_card_tree(root_card, level)
     if level < 5
-      content_tag_for(:div, root_card, :class => "row ") do
+      content_tag_for(:div, root_card, :class => "row #{ !root_card.parent.nil?}") do
         
           render_string = ""
           render_string << render(:partial => '/cards/card', :locals => {:card => root_card})
-          render_string << "<div class='#{div_for_level(level+1)}'>"
+          render_string << "<div class='#{div_for_level(level+1)} '>"
             root_card.children.each do |c|
               render_string << render_card_tree(c, level+1)
             end
