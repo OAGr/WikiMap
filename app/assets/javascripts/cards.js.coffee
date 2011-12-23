@@ -11,7 +11,7 @@ Card =
 
   highlight: (card) -> #Selects the card passed in 
     Card.selected = card
-    $('.links').hide()
+    $('.highlight .links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
 
@@ -109,14 +109,24 @@ jQuery.fn.extend
         levelTag = ""
         deleteColumn = $(ansestor)
 
-    id = "/cards/" + newCard + ".html" + levelTag + "#Whiteboard>.row"
-    
+    id = "/cards/" + newCard + ".html" + levelTag + " #Whiteboard>.row"
     Card.storeHighlight()
-    $(deleteColumn).hide 50, ->
-      $('#Whiteboard').load id, -> 
-        $(otherRows).hide(100)
-        $(Card.selected).addClass("highlight")
-        Card.restorHighlight()
+    $(deleteColumn).hide (50)
+    $('#Whiteboard').load id, ->
+      $(otherRows).hide(100)
+      $(Card.selected).addClass("highlight")
+      Card.restorHighlight()
+    #$.ajax
+    #  type: 'GET'
+    #  dataType: 'html'
+    #  url: id,
+    #  success: (data, textStatus, jqXHR) ->
+    #    $('#Whiteboard').append(data);
+    #    alert('Load was performed.');
+
+    
+   
+   #$('#Whiteboard').load id, -> 
       
 
 	  
