@@ -24,7 +24,7 @@ Card =
     Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
 
   restorHighlight: ->
-    Card.highlight($(Card.highlightID))
+    Card.highlight($(Card.highlightID)[0])
  
   highlightFirst: ->  #When the DOM loads, this highlights the first card
       FirstCard = $('.span4:first')
@@ -34,15 +34,15 @@ Card =
   #This means that it can receive button presses as actions to Add / Delete / Edit / Navigate
   #This is turned off for forms, when a user doesn't want "New" pressed when an "N" is entered
   active: ->      
-    return $('.highlight .links').hasClass("active")
+    $('.highlight').hasClass("active")
 
   parentSelect: ->
     father = $('.highlight').father()
     if Card.active() and (father.parentsUntil('.container').size() != 0) then Card.highlight(father)
   childSelect: ->
     child = $('.highlight').child() 
-    if (child.size() == 0) then $('.highlight').shiftRight()
-    else if Card.active() then Card.highlight(child)
+    if $('.highlight').siblings().hasClass("span0") then $('.highlight').shiftRight()
+    else if (child.size() != 0) and Card.active() then Card.highlight(child)
 
   siblingNextSelect: ->
     bottomSibling = $('.highlight').bottomSibling()
@@ -65,20 +65,23 @@ jQuery ->
   Card.highlightFirst()
 
   $(document).keydown (e) ->
-    if (e.keyCode == 78) then $('.highlight .active .new').click()
-    if (e.keyCode == 68) then $('.highlight .active .delete').click()
-    if (e.keyCode == 69) then $('.highlight .active .edit').click()
-    if (e.keyCode == 79) then $('.highlight .active .open').click()
-    if (e.keyCode == 74) or (e.keyCode == 37) then $().left()
-    if (e.keyCode == 76) or (e.keyCode == 39) then $().right()
-    if (e.keyCode == 73) or (e.keyCode == 38) then $().up()
-    if (e.keyCode == 75) or (e.keyCode == 40) then $().down()
+    if $('.highlight').hasClass('active')
+      switch e.keyCode
+        when 78 then $('.highlight .new').click()
+        when 68 then $('.highlight .delete').click()
+        when 69 then $('.highlight .edit').click()
+        when 79 then $('.highlight .open').click()
+        when 74, 37 then $().left()
+        when 76, 39 then $().right()
+        when 73, 38 then $().up()
+        when 75, 40 then $().down()
+        when 83 then $().shiftRight()
 
 jQuery.fn.extend
   editingState: ->
-    $('.highlight .links').removeClass("active")
+    $('.highlight.active').removeClass("active")
   selectState: ->
-    $('.highlight .links').addClass("active")
+    $('.highlight').addClass("active")
   left: -> 
     Card.parentSelect()
   right: ->
@@ -90,14 +93,14 @@ jQuery.fn.extend
 
   shiftRight: ->
     rowArray = $('.highlight').parentsUntil('.container')
-    row = rowArray[ rowArray.length - 2]
+    row = rowArray[ rowArray.length - 3]
     ansestor = row.children[0]
     otherRows = $(row).siblings()
     newCard = $(ansestor).findId()
-    id = "/cards/" + newCard + ".html" + " #whiteboard"
+    id = "/cards/" + newCard + ".html" + " #innerWhiteboard"
     #alert "hi"
     Card.storeHighlight()
-    $('.container').load id, ->
+    $('#outerWhiteboard').load id, ->
       $(Card.selected).addClass("highlight")
       Card.restorHighlight()
 

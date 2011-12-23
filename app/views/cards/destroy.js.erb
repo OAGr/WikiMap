@@ -1,3 +1,5 @@
-$().left()
-$('#<%= dom_id(@card) %>').fadeOut();
+$().left();
+$('#<%= dom_id(@card) %>').fadeOut( 300, function(){
 $('#<%= dom_id(@card) %>').remove();
+});
+
