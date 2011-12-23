@@ -116,7 +116,7 @@ jQuery.fn.extend
       $(otherRows).hide(100)
       $(Card.selected).addClass("highlight")
       Card.restoreHighlight()
-      callback_fxn()
+      callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
     #$.ajax
     #  type: 'GET'
     #  dataType: 'html'

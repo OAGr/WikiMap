@@ -22,12 +22,18 @@ $.fn.extend
     $("#new_card .description").hide()
     $(".actions").hide()
     $("input:text:first").select()
-    $("input:text:first").keypress (e) ->
+    $("input:text:first").keydown (e) ->
       if (e.keyCode == 13)
-        e.preventDefault(e);
+        e.preventDefault(e)
         $("form .description").show()
         $("form .description textarea").select()
-    $("form .description").keypress (e) ->
+      else if (e.keyCode == 27)
+        $("#new_card").remove()
+        $().selectState()
+    $("form .description").keydown (e) ->
       if (e.keyCode == 13)
-        e.preventDefault(e);
-        $("form").submit();
+        e.preventDefault(e)
+        $("form").submit()
+      else if (e.keyCode == 27)
+        $("#new_card").remove()
+        $().selectState()
