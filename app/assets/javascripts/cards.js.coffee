@@ -115,7 +115,7 @@ jQuery.fn.extend
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
       $(Card.selected).addClass("highlight")
-      Card.restorHighlight()
+      Card.restoreHighlight()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
     #$.ajax
     #  type: 'GET'
