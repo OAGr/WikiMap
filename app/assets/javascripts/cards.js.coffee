@@ -11,7 +11,7 @@ Card =
 
   highlight: (card) -> #Selects the card passed in 
     Card.selected = card
-    $('.highlight .links').hide()
+    $('.links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
 
@@ -109,7 +109,7 @@ jQuery.fn.extend
         levelTag = ""
         deleteColumn = $(ansestor)
 
-    id = "/cards/" + newCard + ".html" + levelTag + " #Whiteboard>.row"
+    id = "/cards/" + newCard + ".html" + levelTag + "#Whiteboard>.row"
     
     Card.storeHighlight()
     $(deleteColumn).hide 50, ->
