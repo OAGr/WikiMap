@@ -14,11 +14,18 @@ Card =
     $('.links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
+    Card.showDescriptions()
 
   selectedHighlight: ->
     $(Card.selected).addClass("highlight")
-    $('.highlight .links').show()
+    $('.highlight .links').show(50)
     $('.highlight').selectState()
+
+  showDescriptions: ->
+    children = $($('.highlight').siblings().children().children('.single')).children().children('.description')
+    $('.description').hide(50)
+    $(children).show(100)
+    $('.highlight .description').show(50)
 
   storeHighlight: ->
     Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
@@ -57,6 +64,8 @@ Card =
 
 jQuery ->
   $('.links').hide()
+  $('.description').hide(50)
+
   $('.header').live "click", (e) ->
     card = Card.findUnit(@)
     Card.highlight(card)

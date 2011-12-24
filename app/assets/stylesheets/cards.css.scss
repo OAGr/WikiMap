@@ -1,6 +1,18 @@
 // Place all the styles related to the Cards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.span16{
+	background: #f8f8f8;
+}
+.span12{
+	background:  #f0f0f0;
+}
+.span8{
+	background: #e6e6e6;
+}
+.span4{
+	background: #ddd;
+}
 
 .card{
 	margin-bottom:0.5em;
@@ -33,6 +45,7 @@
 
 .highlight{
 	.card-outline{
-		border: 3px solid red;
+  box-shadow: -2px -2px 5px #93afff;
+
 	}
 }
