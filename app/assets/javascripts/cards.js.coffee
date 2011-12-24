@@ -107,11 +107,9 @@ jQuery.fn.extend
       when "right" 
         levelTag = "?level=2"
         deleteColumn = $()
-        alternateCard = $('.highlight').child()
       when "left"
         levelTag = ""
         deleteColumn = $(ansestor)
-        alternateCard = $('.highlight').parent()
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     Card.storeHighlight()
