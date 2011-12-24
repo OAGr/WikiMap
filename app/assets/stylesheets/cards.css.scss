@@ -2,16 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .span16{
-	background: #f8f8f8;
+	background: #edf9fe;
 }
 .span12{
-	background:  #f0f0f0;
+	background:  #caffe0;
 }
 .span8{
-	background: #e6e6e6;
+	background: #bafda9;
 }
 .span4{
-	background: #ddd;
+	background: #d6ff52;
 }
 
 .card{
@@ -23,7 +23,7 @@
 	.card-outline{
 	}
 	.header{
-		background:#c5c5c5;
+		background: white;
 		padding: 0.2em 0.3em 0.2em 0.3em;
 		.links{
 		float:right;
