@@ -20,10 +20,11 @@ Card =
     $('.highlight').selectState()
 
   showDescriptions: ->
-    children = $($('.highlight').siblings().children().children('.single')).children().children('.description')
-    $('.description').hide(50)
-    $(children).show(100)
-    $('.highlight .description').show(50)
+    #children = $($('.highlight').siblings().children().children('.single')).children().children('.description')
+    allDescriptions = $('.description')    
+    BranchDescriptions = $('.highlight').parent().find('.description').show()
+    allDescriptions.not(BranchDescriptions).hide(100)
+    BranchDescriptions.show(100)
 
   storeHighlight: ->
     Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
