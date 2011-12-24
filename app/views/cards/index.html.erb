@@ -1,6 +1,20 @@
 <div class="container">
-	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
-	<%= signed_in? %>
+	<ul class="breadcrumb">
+		<div class="row show-grid" >
+		    <div class="span15  parent-list">	
+			<li class="active"> Home  </li>
+			
+		    </div>
+
+		    <div class="span4">
+			<button class="btn primary small">New</button>
+			<button class="btn primary small">Edit</button>
+			<button class="btn danger small">Delete</button>
+		    </div>
+		  </div>
+		
+	</ul>
+
 	<div class="Whiteboard">
 		<% @cards.each do |card| %>
 			<%= render_card_tree(card, 0) %>

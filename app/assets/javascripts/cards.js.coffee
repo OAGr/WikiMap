@@ -34,7 +34,7 @@ Card =
     Card.highlight($(Card.highlightID)[0])
  
   highlightFirst: ->  #When the DOM loads, this highlights the first card
-      FirstCard = $('.span4:first')
+      FirstCard = $('.Whiteboard .span4:first')
       Card.highlight(FirstCard)
 
   #Changes the highlighted card to be active.  
@@ -124,19 +124,8 @@ jQuery.fn.extend
     Card.storeHighlight()
     $(deleteColumn).hide (50)
     $(deleteColumn).remove()
-    opts = 
-      lines: 10 #// The number of lines to draw
-      length: 7 #// The length of each line
-      width: 4 #// The line thickness
-      radius: 9 #// The radius of the inner circle
-      color: '#7cb2ff' #// #rgb or #rrggbb
-      speed: 2 #// Rounds per second
-      trail: 62 #// Afterglow percentage
-      shadow: false #// Whether to render a shadow
-	
-    spinner = new Spinner(opts).spin()
-    spinTag = '<div class="span4 spinner" ></div>'
-    $('.Whiteboard > .row:first').append(spinTag)
+    
+    spinner = $().createSpinner()
     $('.spinner').html(spinner.el)
 	
     $('.Whiteboard').load id, ->
@@ -187,6 +176,22 @@ jQuery.fn.extend
   bottomCousin: ->
     $($(@).father().bottomSibling().child())
 
+  createSpinner: -> 
+    opts = 
+      lines: 10 #// The number of lines to draw
+      length: 7 #// The length of each line
+      width: 4 #// The line thickness
+      radius: 9 #// The radius of the inner circle
+      color: '#aaa' #// #rgb or #rrggbb
+      speed: 2 #// Rounds per second
+      trail: 62 #// Afterglow percentage
+      shadow: false #// Whether to render a shadow
+
+    spinner = new Spinner(opts).spin()
+    spinTag = '<div class="span4 spinner" ></div>'
+    $('.Whiteboard > .row:first').append(spinTag)
+    spinner
+	
   findId: ->
     parent = $(this).parent()
     cardId = $(parent)[0].id
