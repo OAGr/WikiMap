@@ -71,6 +71,10 @@ jQuery ->
     Card.highlight(card)
   Card.highlightFirst()
 
+  spinner = $().createSpinner()
+  $('.spinner').html(spinner.el)
+  $('.spinner').hide()
+
   $(document).keydown (e) ->
     if $('.highlight').hasClass('active')
       switch e.keyCode
@@ -85,6 +89,16 @@ jQuery ->
         when 83 then $().shift("right")
         when 65 then $().shift("left")
 
+  $(".btn.new").click ->
+    if $('.highlight').hasClass('active')
+      $('.highlight .new').click()
+  $(".btn.edit").click ->
+   if $('.highlight').hasClass('active')
+     $('.highlight .edit').click()
+  $(".btn.delete").click ->
+    if $('.highlight').hasClass('active')
+      $('.highlight .delete').click()
+		
 jQuery.fn.extend
   whichClass: (classArray) ->	
     return item for item in classArray when this.hasClass(item)
@@ -106,6 +120,7 @@ jQuery.fn.extend
     Card.highlight(this)
 
   shift: (direction = "left", callback_fxn) ->
+    $('.spinner').show()
     rowArray = $('.highlight').parentsUntil('.container')
     row = rowArray[ rowArray.length - 2]
     otherRows = $(row).siblings()
@@ -124,9 +139,6 @@ jQuery.fn.extend
     Card.storeHighlight()
     $(deleteColumn).hide (50)
     $(deleteColumn).remove()
-    
-    spinner = $().createSpinner()
-    $('.spinner').html(spinner.el)
 	
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
@@ -134,6 +146,8 @@ jQuery.fn.extend
       if ($('.highlight').length == 0)
          Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
+      $('.spinner').hide()
+	  
 
     #$.ajax
     #  type: 'GET'
@@ -178,18 +192,16 @@ jQuery.fn.extend
 
   createSpinner: -> 
     opts = 
-      lines: 10 #// The number of lines to draw
+      lines: 8 #// The number of lines to draw
       length: 7 #// The length of each line
       width: 4 #// The line thickness
-      radius: 9 #// The radius of the inner circle
-      color: '#aaa' #// #rgb or #rrggbb
+      radius: 4 #// The radius of the inner circle
+      color: '#888' #// #rgb or #rrggbb
       speed: 2 #// Rounds per second
       trail: 62 #// Afterglow percentage
       shadow: false #// Whether to render a shadow
 
     spinner = new Spinner(opts).spin()
-    spinTag = '<div class="span4 spinner" ></div>'
-    $('.Whiteboard > .row:first').append(spinTag)
     spinner
 	
   findId: ->

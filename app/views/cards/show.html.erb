@@ -1,15 +1,19 @@
 <div class="container">
-	<ul class="breadcrumb">
+	<ul class="breadcrumb page-head">
 		<div class="row show-grid" >
-		    <div class="span15  parent-list">	
+		    <div class="span14  parent-list">	
 			<%= parent_card_list(@card)%>
 			<li class="active"> <%= truncate( @card.name, :length => 50, :separator => ' ') %>  </li>
 		    </div>
 			
-		    <div class="span4">
-			<button class="btn primary small">New</button>
-			<button class="btn primary small">Edit</button>
-			<button class="btn danger small">Delete</button>
+		    <div class="span3">
+			<button class="btn primary small new">New</button>
+			<button class="btn primary small edit">Edit</button>
+			<button class="btn danger small delete">Delete</button>
+		    </div>
+		    <div class="span2">
+			<div class="spinner">
+			</div>
 		    </div>
 		  </div>
 		

@@ -1,23 +1,32 @@
+
+
 <div class="container">
-	<ul class="breadcrumb">
+
+	<ul class="breadcrumb  page-head">
 		<div class="row show-grid" >
 		    <div class="span15  parent-list">	
 			<li class="active"> Home  </li>
-			
+
 		    </div>
 
-		    <div class="span4">
-			<button class="btn primary small">New</button>
-			<button class="btn primary small">Edit</button>
-			<button class="btn danger small">Delete</button>
+		    <div class="span3">
+			<button class="btn primary small New">New</button>
+			<button class="btn primary small Edit">Edit</button>
+			<button class="btn danger small Delete">Delete</button>
+		    </div>
+		    <div class="span2">
+			<div class="spinner">
+			</div>
 		    </div>
 		  </div>
-		
-	</ul>
 
+	</ul>
+	
 	<div class="Whiteboard">
 		<% @cards.each do |card| %>
 			<%= render_card_tree(card, 0) %>
 		<% end %>	
 	</div>
+
+	
 </div>

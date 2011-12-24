@@ -10,7 +10,7 @@
 		<div class="links">
 			<%= link_to 'O', card, :class => "open" %>
 			<%= link_to 'E', edit_card_path(card), :remote => true, :class => "edit" %>
-			<%= link_to 'D', card, confirm: 'Are you sure?', method: :delete, :remote => true, :class => "delete" %>
+			<%= link_to 'D', card, confirm: "Are you sure you want to delete card #{card.name}?", method: :delete, :remote => true, :class => "delete" %>
 			<%= link_to 'N', new_card_path( :parent_id => card.id ), :remote => true, :class => "new" %>
 		</div>
 		<% if !card.description.empty? %>
