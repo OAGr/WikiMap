@@ -11,14 +11,12 @@ Card =
 
   highlight: (card) -> #Selects the card passed in 
     Card.selected = card
-    $('.links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
     Card.showDescriptions()
 
   selectedHighlight: ->
     $(Card.selected).addClass("highlight")
-    $('.highlight .links').show(50)
     $('.highlight').selectState()
 
   showDescriptions: ->
@@ -147,6 +145,7 @@ jQuery.fn.extend
          Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
       $('.spinner').hide()
+      $('.links').hide()
 	  
 
     #$.ajax
