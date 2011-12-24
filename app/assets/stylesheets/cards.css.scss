@@ -1,18 +1,7 @@
 // Place all the styles related to the Cards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.span16{
-	background: #edf9fe;
-}
-.span12{
-	background:  #caffe0;
-}
-.span8{
-	background: #bafda9;
-}
-.span4{
-	background: #d6ff52;
-}
+
 
 .card{
 	margin-bottom:0.5em;
@@ -25,6 +14,7 @@
 	.header{
 		background: white;
 		padding: 0.2em 0.3em 0.2em 0.3em;
+		font-size:13px;
 		.links{
 		float:right;
 		}
@@ -35,7 +25,7 @@
 
 	.description{
 	padding:0.2em 0.4em 0.2em 0.3em;
-	color:#333;
+	color:#666;
 	}
 }
 
