@@ -19,16 +19,12 @@
 	position:relative;
 	left:1px;
 	top:1px;
+  
 	.card-outline{
-	background:#eee;
 	}
 	.header{
 		background:#c5c5c5;
 		padding: 0.2em 0.3em 0.2em 0.3em;
-		
-		.header-inside{}
-		.title{
-		}
 		.links{
 		float:right;
 		}
@@ -45,7 +41,10 @@
 
 .highlight{
 	.card-outline{
-  box-shadow: -2px -2px 5px #93afff;
-
+	background-color: #d5f6ff;
+	}
+	.header{
+	background-color: #7cb2ff;
+	
 	}
 }
