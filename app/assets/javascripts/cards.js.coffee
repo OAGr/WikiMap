@@ -79,7 +79,7 @@ jQuery ->
 jQuery.fn.extend
   whichClass: (classArray) ->	
     return item for item in classArray when this.hasClass(item)
-
+ 
   editingState: ->
     $('.highlight').removeClass("active")
   selectState: ->
@@ -93,6 +93,8 @@ jQuery.fn.extend
   up: ->
     Card.siblingSelect(-1)
 
+  highlight1: ->
+    Card.highlight(this)
 
   shift: (direction = "left", callback_fxn) ->
     rowArray = $('.highlight').parentsUntil('.container')
@@ -105,18 +107,22 @@ jQuery.fn.extend
       when "right" 
         levelTag = "?level=2"
         deleteColumn = $()
+        alternateCard = $('.highlight').child()
       when "left"
         levelTag = ""
         deleteColumn = $(ansestor)
+        alternateCard = $('.highlight').parent()
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     Card.storeHighlight()
     $(deleteColumn).hide (50)
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
-      $(Card.selected).addClass("highlight")
-      Card.restoreHighlight()
+      Card.restoreHighlight() 
+      if ($('.highlight').length == 0)
+          Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
+
     #$.ajax
     #  type: 'GET'
     #  dataType: 'html'
