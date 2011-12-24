@@ -123,11 +123,27 @@ jQuery.fn.extend
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     Card.storeHighlight()
     $(deleteColumn).hide (50)
+    $(deleteColumn).remove()
+    opts = 
+      lines: 10 #// The number of lines to draw
+      length: 7 #// The length of each line
+      width: 4 #// The line thickness
+      radius: 9 #// The radius of the inner circle
+      color: '#7cb2ff' #// #rgb or #rrggbb
+      speed: 2 #// Rounds per second
+      trail: 62 #// Afterglow percentage
+      shadow: false #// Whether to render a shadow
+	
+    spinner = new Spinner(opts).spin()
+    spinTag = '<div class="span4 spinner" ></div>'
+    $('.Whiteboard > .row:first').append(spinTag)
+    $('.spinner').html(spinner.el)
+	
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
       Card.restoreHighlight() 
       if ($('.highlight').length == 0)
-          Card.highlightFirst()
+         Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
 
     #$.ajax
