@@ -62,5 +62,6 @@ module CardsHelper
     list.unshift  until list.first.parent.nil? 
     list.map{|c| link_to(c, c.name)}.reverse.join(" / ").html_safe
   end
+  
 
 end

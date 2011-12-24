@@ -11,14 +11,20 @@ Card =
 
   highlight: (card) -> #Selects the card passed in 
     Card.selected = card
-    $('.highlight .links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
+    Card.showDescriptions()
 
   selectedHighlight: ->
     $(Card.selected).addClass("highlight")
-    $('.highlight .links').show()
     $('.highlight').selectState()
+
+  showDescriptions: ->
+    #children = $($('.highlight').siblings().children().children('.single')).children().children('.description')
+    allDescriptions = $('.description')    
+    BranchDescriptions = $('.highlight').parent().find('.description').show()
+    allDescriptions.not(BranchDescriptions).hide(100)
+    BranchDescriptions.show(100)
 
   storeHighlight: ->
     Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
@@ -27,7 +33,7 @@ Card =
     Card.highlight($(Card.highlightID)[0])
  
   highlightFirst: ->  #When the DOM loads, this highlights the first card
-      FirstCard = $('.span4:first')
+      FirstCard = $('.Whiteboard .span4:first')
       Card.highlight(FirstCard)
 
   #Changes the highlighted card to be active.  
@@ -57,10 +63,16 @@ Card =
 
 jQuery ->
   $('.links').hide()
+  $('.description').hide(50)
+
   $('.header').live "click", (e) ->
     card = Card.findUnit(@)
     Card.highlight(card)
   Card.highlightFirst()
+
+  spinner = $().createSpinner()
+  $('.spinner').html(spinner.el)
+  $('.spinner').hide()
 
   $(document).keydown (e) ->
     if $('.highlight').hasClass('active')
@@ -76,12 +88,22 @@ jQuery ->
         when 83 then $().shift("right")
         when 65 then $().shift("left")
 
+  $(".btn.new").click ->
+    if $('.highlight').hasClass('active')
+      $('.highlight .new').click()
+  $(".btn.edit").click ->
+   if $('.highlight').hasClass('active')
+     $('.highlight .edit').click()
+  $(".btn.delete").click ->
+    if $('.highlight').hasClass('active')
+      $('.highlight .delete').click()
+		
 jQuery.fn.extend
   whichClass: (classArray) ->	
     return item for item in classArray when this.hasClass(item)
-
+ 
   editingState: ->
-    $('.highlight.active').removeClass("active")
+    $('.highlight').removeClass("active")
   selectState: ->
     $('.highlight').addClass("active")
   left: -> 
@@ -93,8 +115,11 @@ jQuery.fn.extend
   up: ->
     Card.siblingSelect(-1)
 
+  highlight1: ->
+    Card.highlight(this)
 
   shift: (direction = "left", callback_fxn) ->
+    $('.spinner').show()
     rowArray = $('.highlight').parentsUntil('.container')
     row = rowArray[ rowArray.length - 2]
     otherRows = $(row).siblings()
@@ -112,11 +137,18 @@ jQuery.fn.extend
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     Card.storeHighlight()
     $(deleteColumn).hide (50)
+    $(deleteColumn).remove()
+	
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
-      $(Card.selected).addClass("highlight")
-      Card.restoreHighlight()
+      Card.restoreHighlight() 
+      if ($('.highlight').length == 0)
+         Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
+      $('.spinner').hide()
+      $('.links').hide()
+	  
+
     #$.ajax
     #  type: 'GET'
     #  dataType: 'html'
@@ -158,6 +190,20 @@ jQuery.fn.extend
   bottomCousin: ->
     $($(@).father().bottomSibling().child())
 
+  createSpinner: -> 
+    opts = 
+      lines: 8 #// The number of lines to draw
+      length: 7 #// The length of each line
+      width: 4 #// The line thickness
+      radius: 4 #// The radius of the inner circle
+      color: '#888' #// #rgb or #rrggbb
+      speed: 2 #// Rounds per second
+      trail: 62 #// Afterglow percentage
+      shadow: false #// Whether to render a shadow
+
+    spinner = new Spinner(opts).spin()
+    spinner
+	
   findId: ->
     parent = $(this).parent()
     cardId = $(parent)[0].id

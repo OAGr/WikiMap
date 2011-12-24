@@ -1,6 +1,24 @@
 <div class="container">
-	<td><%= link_to 'New Card', new_card_path( :parent_id => nil )%></td>
-	<%= signed_in? %>
+	<ul class="breadcrumb page-head">
+		<div class="row show-grid" >
+		    <div class="span14  parent-list">	
+			<%= parent_card_list(@card)%>
+			<li class="active"> <%= truncate( @card.name, :length => 50, :separator => ' ') %>  </li>
+		    </div>
+			
+		    <div class="span3">
+			<button class="btn primary small new">New</button>
+			<button class="btn primary small edit">Edit</button>
+			<button class="btn danger small delete">Delete</button>
+		    </div>
+		    <div class="span2">
+			<div class="spinner">
+			</div>
+		    </div>
+		  </div>
+		
+	</ul>
+
 	<% if !@card.nil? %>	
 		<div class="Whiteboard">
 			<% @cards.each do |card| %>

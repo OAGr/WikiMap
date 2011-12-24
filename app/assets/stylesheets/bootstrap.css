@@ -191,6 +191,7 @@ body {
   line-height: 18px;
   color: #404040;
 }
+
 .container {
   width: 1180px;
   margin-left: auto;
@@ -267,7 +268,7 @@ a:hover {
 [class*="span"] {
   display: inline;
   float: left;
-  margin-left: 20px;
+  margin-left: 18px;
 }
 .span1 {
   width: 40px;

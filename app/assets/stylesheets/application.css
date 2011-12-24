@@ -5,3 +5,12 @@
  *= require_self
  *= require_tree . 
 */
+
+.page-head{
+  position:fixed;
+  z-index:50;
+}
+
+.Whiteboard{
+margin-top: 4em;
+}

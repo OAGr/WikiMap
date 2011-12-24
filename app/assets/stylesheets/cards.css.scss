@@ -2,21 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.spinner{
+	position:relative;
+	right: -70px;
+	top: 15px;
+}
+
 .card{
 	margin-bottom:0.5em;
 	position:relative;
 	left:1px;
 	top:1px;
+  
 	.card-outline{
-	background:#eee;
 	}
 	.header{
-		background:#c5c5c5;
+		background: white;
 		padding: 0.2em 0.3em 0.2em 0.3em;
+		font-size:13px;
 		
-		.header-inside{}
-		.title{
-		}
 		.links{
 		float:right;
 		}
@@ -27,12 +31,16 @@
 
 	.description{
 	padding:0.2em 0.4em 0.2em 0.3em;
-	color:#333;
+	color:#666;
 	}
 }
 
 .highlight{
 	.card-outline{
-		border: 3px solid red;
+	background-color: #d5f6ff;
+	}
+	.header{
+	background-color: #7cb2ff;
+	
 	}
 }
