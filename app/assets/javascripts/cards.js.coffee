@@ -11,7 +11,7 @@ Card =
 
   highlight: (card) -> #Selects the card passed in 
     Card.selected = card
-    $('.highlight .links').hide()
+    $('.links').hide()
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
 
@@ -24,7 +24,6 @@ Card =
     Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
 
   restoreHighlight: ->
-    $('.highlight .links').hide()
     Card.highlight($(Card.highlightID)[0])
  
   highlightFirst: ->  #When the DOM loads, this highlights the first card
