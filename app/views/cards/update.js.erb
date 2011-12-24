@@ -3,3 +3,4 @@ a = $("#<%= dom_id(@card) %> .single")[0];
 $(a).replaceWith("<%=  j render(@card) %>");
 
 $("#<%= dom_id(@card) %> .header:first").click();
+$('.links').hide();

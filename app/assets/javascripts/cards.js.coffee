@@ -63,8 +63,8 @@ Card =
 
 jQuery ->
   $('.links').hide()
-  $('.description').hide(50)
-
+  $('.description').hide()
+  $( '.submit').hide()
   $('.header').live "click", (e) ->
     card = Card.findUnit(@)
     Card.highlight(card)
@@ -75,7 +75,7 @@ jQuery ->
   $('.spinner').hide()
 
   $(document).keydown (e) ->
-    if $('.highlight').hasClass('active')
+    if Card.active()
       switch e.keyCode
         when 78 then $('.highlight .new').click()
         when 68 then $('.highlight .delete').click()
@@ -89,23 +89,28 @@ jQuery ->
         when 65 then $().shift("left")
 
   $(".btn.new").click ->
-    if $('.highlight').hasClass('active')
-      $('.highlight .new').click()
+    $('.highlight .new').click()
   $(".btn.edit").click ->
-   if $('.highlight').hasClass('active')
-     $('.highlight .edit').click()
+    $('.highlight .edit').click()
   $(".btn.delete").click ->
-    if $('.highlight').hasClass('active')
-      $('.highlight .delete').click()
-		
+    $('.highlight .delete').click()
+  $(".btn.submit").click ->
+    $("form").submit()
+
 jQuery.fn.extend
   whichClass: (classArray) ->	
     return item for item in classArray when this.hasClass(item)
  
   editingState: ->
     $('.highlight').removeClass("active")
+    $('.btn').not('.submit').hide()
+    $('.btn.submit').show()
+
   selectState: ->
     $('.highlight').addClass("active")
+    $('.btn.submit').hide()
+    $('.btn').not('.submit').show()
+
   left: -> 
     Card.parentSelect()
   right: ->
@@ -135,10 +140,11 @@ jQuery.fn.extend
         deleteColumn = $(ansestor)
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
+    nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list li"
     Card.storeHighlight()
     $(deleteColumn).hide (50)
     $(deleteColumn).remove()
-	
+    $('.parent-list').load(nav)	
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
       Card.restoreHighlight() 

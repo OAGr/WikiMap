@@ -3,13 +3,15 @@
 		<div class="row show-grid" >
 		    <div class="span14  parent-list">	
 			<%= parent_card_list(@card)%>
-			<li class="active"> <%= truncate( @card.name, :length => 50, :separator => ' ') %>  </li>
+			<li class="active"> <%= link_to truncate( @card.name, :length => 50, :separator => ' '), card_path(@card) %>  </li>
 		    </div>
 			
 		    <div class="span3">
-			<button class="btn primary small new">New</button>
+			<button class="btn primary small new ">New</button>
 			<button class="btn primary small edit">Edit</button>
 			<button class="btn danger small delete">Delete</button>
+			<button class="btn primary small submit">Submit</button>
+			
 		    </div>
 		    <div class="span2">
 			<div class="spinner">
