@@ -1,11 +1,16 @@
 Ideaspan::Application.routes.draw do
-  resources :cards
-#Sessions / Omniauth
-
-match '/auth/:provider/callback', :to => 'sessions#create'
-
   root :to => 'cards#index'
   
+  resources :cards
+#Sessions / Omniauth
+  match '/auth/:provider/callback', :to => 'sessions#create'
+
+  
+  resources :users do
+    member do
+      get 'show'
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

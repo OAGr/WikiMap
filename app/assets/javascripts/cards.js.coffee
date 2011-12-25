@@ -34,7 +34,7 @@ Card =
     Card.highlight($(Card.highlightID)[0])
  
   highlightFirst: ->  #When the DOM loads, this highlights the first card
-      FirstCard = $('.Whiteboard .span4:first')
+      FirstCard = $('.Whiteboard .span3:first')
       Card.highlight(FirstCard)
 
   #Changes the highlighted card to be active.  
@@ -54,7 +54,7 @@ Card =
     else if (child.size() != 0) and Card.active() then Card.highlight(child)
 
   siblingSelect: ( change ) ->
-    spanLink = $('.highlight').parent().parent().whichClass(['Whiteboard','span16','span12','span8','span4','span0'])
+    spanLink = $('.highlight').parent().parent().whichClass(['Whiteboard','span12','span9','span6','span3','span0'])
     column = $(" .#{spanLink} > .row")
     highlightParent = $('.highlight').parent()[0]
     newIndex = column.index(highlightParent) + change
@@ -141,7 +141,7 @@ jQuery.fn.extend
         deleteColumn = $(ansestor)
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
-    nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list li"
+    nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list-inner "
     Card.storeHighlight()
     $(deleteColumn).hide (50)
     $(deleteColumn).remove()

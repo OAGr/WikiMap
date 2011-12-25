@@ -18,11 +18,13 @@ class CardsController < ApplicationController
     if (params[:level])
       if (params[:level] == '1')
         @cards = @card.parent.children
+        @card = @card.parent
       elsif (params[:level] == '2')
         if @card.parent.parent.nil?
           @cards = [@card.parent]
         else
           @cards = @card.parent.parent.children
+          @card = @card.parent.parent
         end
       end
     end

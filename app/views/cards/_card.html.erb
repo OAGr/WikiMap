@@ -1,13 +1,16 @@
-<div class="span4 single">
+<div class="span3 single">
 	<div class="card-outline">
-		<div class="header row">
+		<div class="header">
 	
-			<div class="span4">
-				<div class="header-inside">
-					<div class="title">
-					<%= card.name %>
-					</div>
-				</div>
+			<div class="title" style="width:155px; float:left" >
+				<%= card.name %>
+			</div>
+
+			<div style="width:20px; float:left; margin-left:5px">
+				<% if !card.user.nil? %>
+				<% newcard = Card.find_by_name("People").children(:user_id => card.user.id) %>
+					<%= link_to image_tag("/blank-person-32.png", :width => "20px"), card_path( newcard )%>
+				<% end %>
 			</div>
 		</div>
 		<div class="links">
@@ -16,6 +19,5 @@
 			<%= link_to 'D', card, confirm: "Are you sure you want to delete card #{card.name}?", method: :delete, :remote => true, :class => "delete" %>
 			<%= link_to 'N', new_card_path( :parent_id => card.id ), :remote => true, :class => "new" %>
 		</div>
-
 	</div>
 </div>

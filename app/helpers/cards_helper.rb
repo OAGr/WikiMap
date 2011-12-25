@@ -1,24 +1,47 @@
 module CardsHelper
   
   def div_for_level(level)
-    "span#{20-level.to_i*4} card-children"
+    "span#{16-level.to_i*3} card-children"
   end
 
+  def left_arrow(card)
+    arrow = ""
+    if !card.parent.nil?   
+      a = link_to(image_tag("/left-arrow.png"), card_path(card.parent.parent))
+    end
+      "<div class='span1'> #{a} </div>"
+  end
+  
+  def right_arrow(card)
+    arrow = ""
+    if !card.children.empty?   
+      a = link_to(image_tag("/left-arrow.png"), card_path(card.parent.parent))
+    end
+      "<div class='span1'> #{a} </div>"
+  end
+    
   def render_card_tree(root_card, level)
     if level < 5
       content_tag_for(:div, root_card, :class => "row #{ !root_card.parent.nil?}") do
         
           render_string = ""
+          
+          if (level == 0) then render_string << left_arrow(root_card) end
+          
           render_string << render(:partial => '/cards/card', :locals => {:card => root_card})
           render_string << "<div class='#{div_for_level(level+1)} '>"
+          
             root_card.children.each do |c|
               render_string << render_card_tree(c, level+1)
             end
+            
           render_string << "</div>"
+          
+            
           render_string.html_safe
       end
     else
-      ""
+     right_arrow(root_card) 
     end  
   end
   
@@ -60,7 +83,7 @@ module CardsHelper
     #unshifts add to beginning of list
     list.unshift list.first.parent until list.first.parent.nil?
     list.unshift  until list.first.parent.nil? 
-    list.map{|c| link_to(c, c.name)}.reverse.join(" / ").html_safe
+    list.map{|c| link_to(c.name, c)}.join(" / ").html_safe
   end
   
 

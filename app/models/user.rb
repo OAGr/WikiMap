@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   has_many :authorizations
   has_many :cards
   
-  
   after_create do |user|
       a = Card.new
         a.name = user.name

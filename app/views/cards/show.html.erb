@@ -2,8 +2,9 @@
 	<ul class="breadcrumb page-head">
 		<div class="row show-grid" >
 		    <div class="span14  parent-list">	
+			<div class="parent-list-inner">
 			<%= parent_card_list(@card)%>
-			<li class="active"> <%= link_to truncate( @card.name, :length => 50, :separator => ' '), card_path(@card) %>  </li>
+			</div>
 		    </div>
 			
 		    <div class="span3">
@@ -26,6 +27,5 @@
 			<% @cards.each do |card| %>
 				<%= render_card_tree(card, 0) %>
 			<% end %>
-		</div>
 	<% end %>
 </div>
