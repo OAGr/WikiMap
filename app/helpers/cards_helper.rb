@@ -7,17 +7,17 @@ module CardsHelper
   def left_arrow(card)
     arrow = ""
     if !card.parent.nil?   
-      a = link_to(image_tag("/left-arrow.png"), card_path(card.parent.parent))
+      a = link_to(image_tag("/left-arrow.png", :width => '22px' ), card_path(card.parent.parent))
     end
-      "<div class='span1'> #{a} </div>"
+      "<div class='span1 arrow leftpoint'> #{a} </div>"
   end
   
   def right_arrow(card)
     arrow = ""
     if !card.children.empty?   
-      a = link_to(image_tag("/left-arrow.png"), card_path(card.parent.parent))
+      a = link_to(image_tag("/right-arrow.png", :width => '22px' ), card_path(card))
     end
-      "<div class='span1'> #{a} </div>"
+      "<div class='span1 arrow rightpoint'> #{a} </div>"
   end
     
   def render_card_tree(root_card, level)

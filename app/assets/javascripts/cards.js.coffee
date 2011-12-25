@@ -45,16 +45,16 @@ Card =
 
   parentSelect: ->
     father = $('.highlight').father()
-    if Card.active() and (father.parentsUntil('.container').size() != 0) then Card.highlight(father)
+    if Card.active() and not $('.highlight').parent().parent().hasClass("Whiteboard") then Card.highlight(father)
     else $().shift("right")
 
   childSelect: ->
     child = $('.highlight').child() 
-    if $('.highlight').siblings().hasClass("span0") then $().shift("left")
+    if $('.highlight').siblings('.span1').not('.leftpoint').length > 0 then $().shift("left")
     else if (child.size() != 0) and Card.active() then Card.highlight(child)
 
   siblingSelect: ( change ) ->
-    spanLink = $('.highlight').parent().parent().whichClass(['Whiteboard','span12','span9','span6','span3','span0'])
+    spanLink = $('.highlight').parent().parent().whichClass(['Whiteboard','span13','span10','span7','span4','span1'])
     column = $(" .#{spanLink} > .row")
     highlightParent = $('.highlight').parent()[0]
     newIndex = column.index(highlightParent) + change
@@ -126,10 +126,11 @@ jQuery.fn.extend
 
   shift: (direction = "left", callback_fxn) ->
     $('.spinner').show()
-    rowArray = $('.highlight').parentsUntil('.container')
-    row = rowArray[ rowArray.length - 2]
+    $('.active').removeClass('active')
+    rowArray = $('.highlight').parentsUntil('.Whiteboard')
+    row = rowArray[ rowArray.length - 1]
     otherRows = $(row).siblings()
-    ansestor = row.children[0]
+    ansestor = row.children[1]
     newCard = $(ansestor).findId()
     
     switch direction
@@ -143,8 +144,8 @@ jQuery.fn.extend
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list-inner "
     Card.storeHighlight()
-    $(deleteColumn).hide (50)
-    $(deleteColumn).remove()
+    $(deleteColumn).hide 100, ->
+      $(deleteColumn).remove()
     $('.parent-list').load(nav)	
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
@@ -154,7 +155,7 @@ jQuery.fn.extend
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
       $('.spinner').hide()
       $('.links').hide()
-	  
+      Card.active()
 
     #$.ajax
     #  type: 'GET'
@@ -183,11 +184,11 @@ jQuery.fn.extend
     #('.span0.card-children').removeClass('span0')
 
   father: ->
-    $($(@).parent().parent().siblings())
+    $($(@).parent().parent().siblings(':last'))
   child: ->
-    $($(@).siblings().children(":first").children('.single'))
+    $($(@).siblings(':last').not('span1').children(":first").children('.single'))
   lastChild: ->
-    $($(@).siblings().children(":last").children('.single'))
+    $($(@).siblings(':last').children(":last").children('.single'))
   bottomSibling: ->
     $($(@).parent().next().children(":first"))
   topSibling: ->

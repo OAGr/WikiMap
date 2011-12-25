@@ -7,8 +7,8 @@
 */
 
 .page-head{
-  position:fixed;
   z-index:50;
+  position: fixed;
 }
 
 .Whiteboard{
