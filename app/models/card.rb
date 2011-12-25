@@ -8,9 +8,11 @@ class Card < ActiveRecord::Base
   belongs_to :user
   validates :name, :presence => true
 
+
+   
   def has_children?
     return !self.children.nil?
   end
 
-
+   
 end

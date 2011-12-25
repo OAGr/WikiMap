@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def create
+
     omnihash = request.env['omniauth.auth']
     unless @auth = Authorization.find_from_hash(omnihash)
       #store token if its new
