@@ -3,14 +3,12 @@
 		<div class="header" style="float:left">
 	
 			<% if !card.user.nil? and (card.user != current_user) %>
-				<div class="title" style="width:155px; float:left" >
+				<div class="title" style="width:165px; float:left" >
 					<%= card.name %>
 				</div>
 
-				<div style="width:20px; float:left; margin-left:5px">
-						<% uid = card.user.authorizations.first.uid %>
-						<% newcard = Card.find_by_name("People").children().find_by_user_id(card.user.id) %>
-						<%= link_to image_tag("https://graph.facebook.com/#{uid}/picture", :width => "20px"), card_path( card )%>
+				<div style="float:left; margin-left:5px">
+					<%= link_to image_tag(card_pic(card.user), :width => "20px"), card_path( home_card(card.user) )%>
 				</div>
 			<% else %>
 			<div class="title" >

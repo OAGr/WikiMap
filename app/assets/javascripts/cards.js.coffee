@@ -112,6 +112,14 @@ jQuery.fn.extend
     $('.btn.submit').hide()
     $('.btn').not('.submit').show()
 
+  selectRow: ( option = 'highlight') ->
+    Spans = ['Whiteboard','span13','span10','span7','span4','span1']
+    if option is 'highlight'
+      spanLink = $('.highlight').parent().parent().whichClass(Spans)
+    else 
+      spanLink = Spans[option]
+    $(" .#{spanLink} > .row > .single")
+
   left: -> 
     Card.parentSelect()
   right: ->
@@ -136,16 +144,16 @@ jQuery.fn.extend
     switch direction
       when "right" 
         levelTag = "?level=2"
-        deleteColumn = $()
+        $().rightAnimation()
       when "left"
         levelTag = ""
-        deleteColumn = $(ansestor)
+        $().leftAnimation()
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list-inner "
+
     Card.storeHighlight()
-    $(deleteColumn).hide 100, ->
-      $(deleteColumn).remove()
+
     $('.parent-list').load(nav)	
     $('.Whiteboard').load id, ->
       $(otherRows).hide(100)
@@ -153,18 +161,17 @@ jQuery.fn.extend
       if ($('.highlight').length == 0)
          Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
-      $('.links').hide()
       $('.spinner').hide()
-
+      $('.links').hide()
       Card.active()
 
-    #$.ajax
-    #  type: 'GET'
-    #  dataType: 'html'
-    #  url: id,
-    #  success: (data, textStatus, jqXHR) ->
-    #    $('#Whiteboard').append(data);
-    #    alert('Load was performed.');
+#    $.ajax
+#      type: 'GET'
+#      dataType: 'html'
+#      url: id,
+#      success: (data, textStatus, jqXHR) ->
+#        $('#Whiteboard').append(data);
+#        alert('Load was performed.');
 
     
    
@@ -183,6 +190,25 @@ jQuery.fn.extend
     #$('.span4.card-children').removeClass('span4')
     #$('.span0.card-children').addClass('span4')
     #('.span0.card-children').removeClass('span0')
+
+
+  leftAnimation: -> 
+    $('.arrow a').hide(400)
+    $().selectRow(0).hide 500, ->
+      $(deleteColumn).remove()
+
+  rightAnimation: ->
+    $('.Whiteboard > .row').prepend("<div class='span4 right-open-hidden', style='display:none;' >  </div>")
+    $('.span1.card-children').hide(300)
+    $('.span4.card-children').hide(300)
+    $('.span7.card-children').addClass('span4')
+    $('.span7.card-children').removeClass('span7')
+    $('.span10.card-children').addClass('span7')
+    $('.span10.card-children').removeClass('span10')
+    $('.span13.card-children').addClass('span10')
+    $('.span13.card-children').removeClass('span13')
+    $('.arrow').hide(300)
+    $('.right-open-hidden').show(500)
 
   father: ->
     $($(@).parent().parent().siblings(':last'))

@@ -3,6 +3,13 @@
 		    <div class=" span12 parent-list">	
 			<div class="parent-list-inner">
 			<%= parent_card_list(@card)%>
+			
+			</div>
+		    </div>
+		
+		    <div class="span1">
+			<div style="height:1px"></div>
+			<div class="spinner">
 			</div>
 		    </div>
 			
@@ -14,13 +21,10 @@
 				<button class="btn primary small edit">Edit</button>
 				<button class="btn danger small delete">Delete</button>
 				<button class="btn primary small submit">Submit</button>
-				<% end %>
+				<%= link_to image_tag(card_pic(current_user), :class => "picture"), card_path( home_card(current_user) )%>
+				
+				<% end %>	
 		    </div>
-		    <div class="span1">
-			<div class="spinner">
-			</div>
-		    </div>
-		
 	</div>
 
 	<% if !@card.nil? %>	
