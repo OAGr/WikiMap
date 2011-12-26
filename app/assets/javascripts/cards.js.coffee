@@ -22,9 +22,9 @@ Card =
   showDescriptions: ->
     #children = $($('.highlight').siblings().children().children('.single')).children().children('.description')
     allDescriptions = $('.description')    
-    BranchDescriptions = $('.highlight').parent().find('.description').hide(200)
+    #BranchDescriptions = $('.highlight').parent().find('.description').hide(200)
     #BranchDescriptions = $('.highlight').parentsUntil('.container').find('.description')
-    allDescriptions.not(BranchDescriptions).show(200)
+    #allDescriptions.not(BranchDescriptions).show(200)
     #BranchDescriptions.show(100)
 
   storeHighlight: ->
@@ -59,7 +59,7 @@ Card =
     highlightParent = $('.highlight').parent()[0]
     newIndex = column.index(highlightParent) + change
     if (column[newIndex] != undefined)
-      newCard = column[newIndex].children[0]
+      newCard = $(column[newIndex]).find('.single:first')
       Card.highlight($(newCard))
 
 jQuery ->
@@ -153,8 +153,9 @@ jQuery.fn.extend
       if ($('.highlight').length == 0)
          Card.highlightFirst()
       callback_fxn() if callback_fxn and typeof(callback_fxn) is "function"
-      $('.spinner').hide()
       $('.links').hide()
+      $('.spinner').hide()
+
       Card.active()
 
     #$.ajax

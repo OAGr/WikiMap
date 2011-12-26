@@ -1,23 +1,32 @@
 <div class="span3 single">
 	<div class="card-outline">
-		<div class="header">
+		<div class="header" style="float:left">
 	
-			<div class="title" style="width:155px; float:left" >
+			<% if !card.user.nil? and (card.user != current_user) %>
+				<div class="title" style="width:155px; float:left" >
+					<%= card.name %>
+				</div>
+
+				<div style="width:20px; float:left; margin-left:5px">
+						<% uid = card.user.authorizations.first.uid %>
+						<% newcard = Card.find_by_name("People").children().find_by_user_id(card.user.id) %>
+						<%= link_to image_tag("https://graph.facebook.com/#{uid}/picture", :width => "20px"), card_path( card )%>
+				</div>
+			<% else %>
+			<div class="title" >
 				<%= card.name %>
 			</div>
+			<% end %>
 
-			<div style="width:20px; float:left; margin-left:5px">
-				<% if !card.user.nil? %>
-				<% newcard = Card.find_by_name("People").children(:user_id => card.user.id) %>
-					<%= link_to image_tag("/blank-person-32.png", :width => "20px"), card_path( newcard )%>
-				<% end %>
-			</div>
+			
 		</div>
 		<div class="links">
+			<% if signed_in? %>
 			<%= link_to 'O', card, :class => "open" %>
 			<%= link_to 'E', edit_card_path(card), :remote => true, :class => "edit" %>
 			<%= link_to 'D', card, confirm: "Are you sure you want to delete card #{card.name}?", method: :delete, :remote => true, :class => "delete" %>
 			<%= link_to 'N', new_card_path( :parent_id => card.id ), :remote => true, :class => "new" %>
+			<% end %>
 		</div>
 		<% if !card.description.empty? %>
 				<div class="description">

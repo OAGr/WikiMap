@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
         a.name = user.name
         a.description = "Edit this card to add a bio!"
         a.parent = Card.where(:name => "People")[0]
+        a.user_id = user.id
       a.save
   end
   

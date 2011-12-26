@@ -5,7 +5,7 @@ module CardsHelper
   end
 
   def left_arrow(card)
-    arrow = ""
+    a = ""
     if !card.parent.nil?   
       a = link_to(image_tag("/left-arrow.png", :width => '22px' ), card_path(card.parent.parent))
     end
@@ -13,7 +13,7 @@ module CardsHelper
   end
   
   def right_arrow(card)
-    arrow = ""
+    a = ""
     if !card.children.empty?   
       a = link_to(image_tag("/right-arrow.png", :width => '22px' ), card_path(card))
     end

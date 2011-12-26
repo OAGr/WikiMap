@@ -7,13 +7,16 @@
 		    </div>
 			
 		    <div class="span3">
-			<button class="btn primary small new ">New</button>
-			<button class="btn primary small edit">Edit</button>
-			<button class="btn danger small delete">Delete</button>
-			<button class="btn primary small submit">Submit</button>
-			
+				<% if !signed_in? %>
+			        <%= link_to( image_tag("/facebook-login.png"), '/auth/facebook')%>
+			        <% else %>
+				<button class="btn primary small new ">New</button>
+				<button class="btn primary small edit">Edit</button>
+				<button class="btn danger small delete">Delete</button>
+				<button class="btn primary small submit">Submit</button>
+				<% end %>
 		    </div>
-		    <div class="span2">
+		    <div class="span1">
 			<div class="spinner">
 			</div>
 		    </div>
