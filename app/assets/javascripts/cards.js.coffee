@@ -4,7 +4,8 @@
 
 Card = 
   seleted: 1
-  highlightID: ""
+  ID: ""
+  IDalternate: ""
 
   findUnit: (touchDiv) ->
     cardunit = $(touchDiv).parent().parent()
@@ -14,6 +15,7 @@ Card =
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
     Card.showDescriptions()
+    $('.highlight .grab-here')[0].scrollIntoView(false)
 
   selectedHighlight: ->
     $(Card.selected).addClass("highlight")
@@ -27,12 +29,15 @@ Card =
     #allDescriptions.not(BranchDescriptions).show(200)
     #BranchDescriptions.show(100)
 
-  storeHighlight: ->
-    Card.highlightID = "#" + $('.highlight').parent()[0].id + " .single"
+  storeHighlight: (alternate)->
+    Card.ID = "#" + $('.highlight').parent()[0].id + " .single"
+    Card.IDalternate =  "#" + $(alternate).parent()[0].id + " .single"
 
   restoreHighlight: ->
-    Card.highlight($(Card.highlightID)[0])
- 
+    Card.highlight($(Card.ID)[0])
+    if $('.highlight').length is 0
+      Card.highlight($(Card.IDalternate))
+
   highlightFirst: ->  #When the DOM loads, this highlights the first card
       FirstCard = $('.Whiteboard .span3:first')
       Card.highlight(FirstCard)
@@ -98,6 +103,14 @@ jQuery ->
   $(".btn.submit").click ->
     $("form").submit()
 
+  $('.leftpoint').live "click", (e) ->
+    e.preventDefault(e)
+    $().shift("right")
+  $('.rightpoint').live "click", (e) ->
+    e.preventDefault(e)
+    branchCard = $('.rightpoint').parent().siblings('.span3')
+    $().shift("left", branchCard)
+
 jQuery.fn.extend
   whichClass: (classArray) ->	
     return item for item in classArray when this.hasClass(item)
@@ -132,10 +145,10 @@ jQuery.fn.extend
   highlight1: ->
     Card.highlight(this)
 
-  shift: (direction = "left", callback_fxn) ->
+  shift: (direction = "left", card = $('.highlight'), callback_fxn) ->
     $('.spinner').show()
     $('.active').removeClass('active')
-    rowArray = $('.highlight').parentsUntil('.Whiteboard')
+    rowArray = $(card).parentsUntil('.Whiteboard')
     row = rowArray[ rowArray.length - 1]
     otherRows = $(row).siblings()
     ansestor = row.children[1]
@@ -145,14 +158,16 @@ jQuery.fn.extend
       when "right" 
         levelTag = "?level=2"
         $().rightAnimation()
+        alternateCard = $('.highlight').child()
       when "left"
         levelTag = ""
         $().leftAnimation()
+        alternateCard = $('.highlight').parent()
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list-inner "
 
-    Card.storeHighlight()
+    Card.storeHighlight(alternateCard)
 
     $('.parent-list').load(nav)	
     $('.Whiteboard').load id, ->
@@ -164,6 +179,7 @@ jQuery.fn.extend
       $('.spinner').hide()
       $('.links').hide()
       Card.active()
+
 
 #    $.ajax
 #      type: 'GET'
