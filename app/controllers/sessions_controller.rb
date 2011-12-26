@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
      end
      # Log the authorizing user in.
      session[:user_id] = @auth.user.id
-     redirect_to cards_path
+     redirect_to user_path(@auth.user)
   end
   
 
