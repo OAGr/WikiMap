@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.page-head{
+  z-index:50;
+  position: fixed;
+
+  .picture{
+  height:30px;
+  float:right;
+}
+
+}
+
 .spinner{
 	position:relative;
 	right: -10px;
