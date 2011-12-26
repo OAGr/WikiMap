@@ -6,20 +6,3 @@
  *= require_tree . 
 */
 
-.right-open-hidden{
-  height:2px;
-display: none;
-}
-
-
-.Whiteboard{
-margin-top: 4em;
-}
-
-.leftpoint{
-  min-height:5px;
-};
-
-.rightpoint{
-  min-hight:5px;
-}

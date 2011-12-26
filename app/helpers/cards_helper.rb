@@ -15,7 +15,7 @@ module CardsHelper
   def right_arrow(card)
     a = ""
     if !card.children.empty?   
-      a = link_to(image_tag("/right-arrow.png", :width => '22px' ), card_path(card))
+      a = link_to(image_tag("/right-arrow.png", :width => '22px' ), card_path(card.parent.parent.parent.parent.parent))
     end
       "<div class='span1 arrow rightpoint'> #{a} </div>"
   end
