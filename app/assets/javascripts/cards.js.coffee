@@ -15,8 +15,12 @@ Card =
     $('.highlight').removeClass("highlight") #Removes other highlights
     Card.selectedHighlight()
     Card.showDescriptions()
-    $('.highlight .grab-here')[0].scrollIntoView(false)
+    Card.scroll()
 
+  scroll: ->
+    if $('.highlight').length is not 0
+      $('.highlight .grab-here')[0].scrollIntoView(false)
+   
   selectedHighlight: ->
     $(Card.selected).addClass("highlight")
     $('.highlight').selectState()
@@ -36,7 +40,7 @@ Card =
   restoreHighlight: ->
     Card.highlight($(Card.ID)[0])
     if $('.highlight').length is 0
-      Card.highlight($(Card.IDalternate))
+      Card.highlight($(Card.IDalternate)[0])
 
   highlightFirst: ->  #When the DOM loads, this highlights the first card
       FirstCard = $('.Whiteboard .span3:first')
@@ -158,15 +162,14 @@ jQuery.fn.extend
       when "right" 
         levelTag = "?level=2"
         $().rightAnimation()
-        alternateCard = $('.highlight').child()
+        alternateCard = $('.highlight').parent()
       when "left"
         levelTag = ""
         $().leftAnimation()
-        alternateCard = $('.highlight').parent()
+        alternateCard = $('.highlight').child()
 
     id = "/cards/" + newCard + ".html" + levelTag + " .Whiteboard>.row"
     nav = "/cards/" + newCard + ".html" + levelTag + " .parent-list-inner "
-
     Card.storeHighlight(alternateCard)
 
     $('.parent-list').load(nav)	
@@ -211,7 +214,7 @@ jQuery.fn.extend
   leftAnimation: -> 
     $('.arrow a').hide(400)
     $().selectRow(0).hide 500, ->
-      $(deleteColumn).remove()
+      $().selectRow(0).remove()
 
   rightAnimation: ->
     $('.Whiteboard > .row').prepend("<div class='span4 right-open-hidden', style='display:none;' >  </div>")
