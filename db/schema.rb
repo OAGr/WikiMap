@@ -23,22 +23,22 @@ ActiveRecord::Schema.define(:version => 20111226003423) do
   end
 
   create_table "cards", :force => true do |t|
-    t.string    "name"
-    t.text      "description"
-    t.integer   "parent_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "user_id"
-    t.integer   "grandparent_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "grandparent_id"
   end
 
   add_index "cards", ["parent_id"], :name => "index_cards_on_parent_id"
 
   create_table "users", :force => true do |t|
-    t.string    "name"
-    t.string    "email"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
